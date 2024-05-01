@@ -1,1 +1,2 @@
 # Level-2---Web-Development
+Explore the world of TypeScript, Express, Mongoose, Redis, Redux, Next.js, DBMS, SQL, PostgreSQL, AWS, Docker, Unit Testing, and more in this comprehensive learning repository. Master key technologies for robust web development. Dive in and elevate your skills.
