@@ -1,5 +1,5 @@
 // destructuring for object
-
+export{}
 const user ={
     id: 125,
     name: {
