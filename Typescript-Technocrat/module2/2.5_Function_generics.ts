@@ -35,4 +35,13 @@ const addCourseStudent = <T>(student: T) =>{
 }
 
 
-const stu1 = addCourseStudent({name:'sahil',gmail:'asif@gmail.com'})
+const stu1 = addCourseStudent({
+    name:'sahil',
+    gmail:'asif@gmail.com',
+    devtype:'newbe'
+})
+const stu2 = addCourseStudent({
+    name:'sahil',
+    gmail:'asif@gmail.com',
+    hasWatch:'Apple Watch'
+})
