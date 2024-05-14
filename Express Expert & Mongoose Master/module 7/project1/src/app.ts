@@ -6,7 +6,7 @@ const port = 3000
 app.use(express.json())
 
 // middleware
-const logger = (req:Request,res:Response,next:NextFunction){
+const logger = (req:Request,res:Response,next:NextFunction) =>{
   console.log(req.url,req.method,req.hostname)
   next()
 }
@@ -46,8 +46,14 @@ courseRouter.post("/create-course",(req:Request,res:Response) =>{
 
 
 
-app.get('/',logger, (req:Request, res:Response) => {
-  res.send('Hello sahil world!')
+app.get('/',logger, async(req:Request, res:Response,next:NextFunction) => {
+  try {
+    res.send(something)
+    
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
 })
 
 app.post('/',(req:Request, res:Response) => {
@@ -56,6 +62,25 @@ app.post('/',(req:Request, res:Response) => {
   res.json({
     message: "succesfully send data"
   })
+})
+
+// for all route error handling
+app.all("*",(req:Request,res:Response) =>{
+  res.status(400).json({
+    success:false,
+    message: "Route is not found"
+  })
+})
+
+// global error handling
+
+app.use((error:any,req:Request,res:Response,next: NextFunction)=>{
+  if(error){
+    res.status(400).json({
+      success:false,
+      message: "something went wrong"
+    })
+  }
 })
 
 export default app;
