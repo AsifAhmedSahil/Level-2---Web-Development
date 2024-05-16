@@ -1,4 +1,4 @@
-import { Schema, model, connect } from 'mongoose';
+// import { Schema, model, connect } from 'mongoose';
 
 // 1. Create an interface representing a document in MongoDB.
 
@@ -11,23 +11,35 @@ export type Guirdian ={
   motherNo:string,
 }
 
-export type student = {
-  id:string,
-  name: {
+export type userName = {
     
-    firstName: string;
-    middleName: string;
-    lastName: string;
-  };
+  firstName: string;
+  middleName: string;
+  lastName: string;
+}
+
+export type LocalGuirdian = {
+  name: string;
+  address: string;
+  contact:string;
+
+}
+
+export type Student = {
+  id:string,
+  name: userName;
   gender:'male' | 'female',
   contact: string,
   emergenceContactNo: string,
-  dateOfBirth: string,
+  dateOfBirth?: string,
   email: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-',
   presentAddress: string,
   permanentAddress: string,
 
-  guirdian: Guirdian
-  
+  guirdian: Guirdian,
+  localGuirdian: LocalGuirdian,
+  photoUrl?: string,
+  isActive: 'active' | 'blocked',
+
 };
