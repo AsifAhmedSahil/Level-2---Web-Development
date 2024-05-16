@@ -1,9 +1,9 @@
-import { Schema, model, connect } from 'mongoose';
-import { Student } from './student/student.interface';
+import { Schema, model,  } from 'mongoose';
+import { Guirdian, LocalGuirdian, Student, userName } from './student/student.interface';
 
-const userSchema = new Schema<Student>({
-    id:{type: String},
-    name:{
+
+const userNameSchema = new Schema<userName>({
+    
         firstName:{
             type:String,
             required:true
@@ -12,35 +12,15 @@ const userSchema = new Schema<Student>({
             type:String,
             required:true
         },
-        lastNameName:{
+        lastName:{
             type:String,
             required:true
         },
-    },
-    gender: ["male",'female'],
-    dateOfBirth:String,
-    email: {
-        type:String,
-        required:true
-    },
-    contact: {
-        type:String,
-        required:true
-    },
-    emergenceContactNo: {
-        type:String,
-        required:true
-    },
-    bloodGroup:['A+' , 'A-' , 'B+' , 'B-' , 'AB+' , 'AB-'],
-    presentAddress: {
-        type:String,
-        required:true
-    },
-    permanentAddress: {
-        type:String,
-        required:true
-    },
-    guirdian:{
+    
+})
+
+const guirdianSchema = new Schema<Guirdian>(
+    {
         fatherName:{
             type:String,
             required:true
@@ -65,8 +45,10 @@ const userSchema = new Schema<Student>({
             type:String,
             required:true
         },
-    },
-    localGuirdian:{
+    }
+)
+const localGuirdianSchema = new Schema<LocalGuirdian>(
+    {
         name:{
             type:String
         },
@@ -76,8 +58,42 @@ const userSchema = new Schema<Student>({
         contact:{
             type:String
         },
+    }
+)
+
+const studentSchema = new Schema<Student>({
+    id:{type: String},
+    name:userNameSchema,
+    gender: ["male",'female'],
+    dateOfBirth:String,
+    email: {
+        type:String,
+        required:true
     },
+    contact: {
+        type:String,
+        required:true
+    },
+    emergenceContactNo: {
+        type:String,
+        required:true
+    },
+    bloodGroup:['A+' , 'A-' , 'B+' , 'B-' , 'AB+' , 'AB-'],
+    presentAddress: {
+        type:String,
+        required:true
+    },
+    permanentAddress: {
+        type:String,
+        required:true
+    },
+    guirdian:guirdianSchema,
+    localGuirdian: localGuirdianSchema,
     photoUrl: {type:String},
     isActive:['active','blocked']
 
 })
+
+// create a model for schema
+
+const Student = model<Student>('Student',studentSchema)
