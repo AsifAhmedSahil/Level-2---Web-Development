@@ -6,7 +6,16 @@ const userNameSchema = new Schema<userName>({
     
         firstName:{
             type:String,
-            required:true
+            trim:true,
+            maxlength: 20,
+            required:true,
+            validate:{
+                validator: function(value : string){
+                    const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1)
+                    return firstNameStr === value
+                },
+                message: "{VALUE} is not capitalize form"
+            }
         },
         middleName:{
             type:String,
@@ -75,7 +84,8 @@ const studentSchema = new Schema<Student>({
     dateOfBirth:String,
     email: {
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     contact: {
         type:String,

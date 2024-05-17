@@ -22,6 +22,7 @@ const createPromises = () => {
 // calling create promise functions
 const showData = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield createPromises();
-    console.log(data);
+    return data;
+    // console.log(data)
 });
 showData();
