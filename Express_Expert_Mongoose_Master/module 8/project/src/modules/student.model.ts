@@ -62,9 +62,16 @@ const localGuirdianSchema = new Schema<LocalGuirdian>(
 )
 
 const studentSchema = new Schema<Student>({
-    id:{type: String},
-    name:userNameSchema,
-    gender: ["male",'female'],
+    id:{type: String ,required:true ,unique:true},
+    name:{
+        type:userNameSchema,
+        required:true
+    },
+    gender: {
+        type:String,
+        enum:["male",'female','others'],
+        required:true
+    },
     dateOfBirth:String,
     email: {
         type:String,
@@ -78,7 +85,11 @@ const studentSchema = new Schema<Student>({
         type:String,
         required:true
     },
-    bloodGroup:['A+' , 'A-' , 'B+' , 'B-' , 'AB+' , 'AB-'],
+    bloodGroup:{
+        type:String,
+        enum:['A+' , 'A-' , 'B+' , 'B-' , 'AB+' , 'AB-'],
+
+    },
     presentAddress: {
         type:String,
         required:true
@@ -87,10 +98,20 @@ const studentSchema = new Schema<Student>({
         type:String,
         required:true
     },
-    guirdian:guirdianSchema,
-    localGuirdian: localGuirdianSchema,
+    guirdian:{
+        type:guirdianSchema,
+        required:true
+    },
+    localGuirdian: {
+        type:localGuirdianSchema,
+        required:true
+    },
     photoUrl: {type:String},
-    isActive:['active','blocked']
+    isActive:{
+        type:String,
+        enum:['active','blocked'],
+        default: "active"
+    }
 
 })
 
