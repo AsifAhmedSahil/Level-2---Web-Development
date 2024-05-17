@@ -14,7 +14,7 @@ const userNameSchema = new Schema<userName>({
                     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1)
                     return firstNameStr === value
                 },
-                message: "{VALUE} is not capitalize form"
+                // message: "{VALUE} is not capitalize form"
             }
         },
         middleName:{
