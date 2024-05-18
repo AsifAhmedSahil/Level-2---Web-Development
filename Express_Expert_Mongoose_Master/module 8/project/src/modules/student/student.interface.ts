@@ -14,7 +14,7 @@ export type Guirdian ={
 export type userName = {
     
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 }
 
@@ -28,7 +28,7 @@ export type LocalGuirdian = {
 export type Student = {
   id:string,
   name: userName;
-  gender:'male' | 'female',
+  gender:'male' | 'female'| 'others',
   contact: string,
   emergenceContactNo: string,
   dateOfBirth?: string,

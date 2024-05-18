@@ -13,9 +13,9 @@ app.use("/api/v1/students",studentRoute)
 
 
 app.get('/', (req: Request, res: Response) => {
-  const a = 10;
+  // const a = 10;
 
-  res.send(a);
+  res.send("server connected");
 });
 
 export default app;
