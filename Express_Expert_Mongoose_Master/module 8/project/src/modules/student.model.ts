@@ -1,5 +1,6 @@
 import { Schema, model,  } from 'mongoose';
 import { Guirdian, LocalGuirdian, Student, userName } from './student/student.interface';
+import validator from 'validator';
 
 
 const userNameSchema = new Schema<userName>({
@@ -23,7 +24,11 @@ const userNameSchema = new Schema<userName>({
         },
         lastName:{
             type:String,
-            required:true
+            required:true,
+            validate:{
+                validator: (value : string) => validator.isAlpha(value),
+                message:"{VALUE} is not valid"
+            }
         },
     
 })
@@ -85,7 +90,11 @@ const studentSchema = new Schema<Student>({
     email: {
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        validate:{
+            validator: (value:string) => validator.isEmail(value),
+            message: "{VALUE} is not an valid email"
+        }
     },
     contact: {
         type:String,
