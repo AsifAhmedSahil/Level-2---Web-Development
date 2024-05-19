@@ -1,5 +1,7 @@
 // import { Schema, model, connect } from 'mongoose';
 
+import { Model } from "mongoose";
+
 // 1. Create an interface representing a document in MongoDB.
 
 export type Guirdian ={
@@ -43,3 +45,9 @@ export type Student = {
   isActive: 'active' | 'blocked',
 
 };
+
+export type StudentMethod = {
+  isUserExist(id: string) : Promise<Student | null>;
+}
+
+export type studentModel = Model<Student, Record<string, never> , StudentMethod>

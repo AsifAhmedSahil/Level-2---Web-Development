@@ -1,5 +1,5 @@
 import { Schema, model,  } from 'mongoose';
-import { Guirdian, LocalGuirdian, Student, userName } from './student/student.interface';
+import { Guirdian, LocalGuirdian, Student, StudentMethod, studentModel, userName } from './student/student.interface';
 import validator from 'validator';
 
 
@@ -75,7 +75,7 @@ const localGuirdianSchema = new Schema<LocalGuirdian>(
     }
 )
 
-const studentSchema = new Schema<Student>({
+const studentSchema = new Schema<Student ,studentModel,StudentMethod>({
     id:{type: String ,required:true ,unique:true},
     name:{
         type:userNameSchema,
@@ -136,4 +136,9 @@ const studentSchema = new Schema<Student>({
 
 // create a model for schema
 
-export const StudentModel = model<Student>('Student',studentSchema)
+studentSchema.methods.isUserExist = async function(id: string) {
+    const existingUser = await StudentModel.findOne({id})
+    return existingUser
+}
+
+export const StudentModel = model<Student,studentModel>('Student',studentSchema)

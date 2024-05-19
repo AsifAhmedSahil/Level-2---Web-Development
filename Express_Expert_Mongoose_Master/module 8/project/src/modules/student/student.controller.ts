@@ -17,7 +17,7 @@ const createStudent = async (req: Request, res: Response) => {
     // const {error,value} = studentValidationSchema.validate(studentData)
 
     const zodparseData = studentValidationSchema.parse(studentData)
-    // console.log(studentData)
+    
 
     const result = await studentServices.createStudentIntoDB(zodparseData);
     
@@ -62,10 +62,10 @@ const getSingleStudent = async (req:Request,res:Response) =>{
             message: 'Student is retrived Successfully',
             data: result,
           });
-    } catch (error) {
+    } catch (error : any) {
       res.status(500).json({
         success: false,
-        message: 'Something wnt wrong',
+        message: error.message ||'Something wnt wrong',
         error: error,
       });
         
