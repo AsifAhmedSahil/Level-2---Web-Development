@@ -29,6 +29,7 @@ export type TLocalGuirdian = {
 
 export type TStudent = {
   id:string,
+  password:string,
   name: TuserName;
   gender:'male' | 'female'| 'others',
   contact: string,
