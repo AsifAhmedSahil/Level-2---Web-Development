@@ -42,6 +42,7 @@ const localGuirdianValidationSchema = z.object({
     localGuirdian: localGuirdianValidationSchema,
     photoUrl: z.string().optional(),
     isActive: z.enum(['active', 'blocked']), // Make it non-optional and align with Mongoose schema
+    isDeleted:z.boolean()
 
 });
 

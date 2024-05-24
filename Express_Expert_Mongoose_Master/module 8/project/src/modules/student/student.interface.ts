@@ -44,6 +44,7 @@ export type TStudent = {
   localGuirdian: TLocalGuirdian,
   photoUrl?: string,
   isActive: 'active' | 'blocked',
+  isDeleted: boolean
 
 };
 

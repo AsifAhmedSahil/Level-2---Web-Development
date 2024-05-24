@@ -79,7 +79,7 @@ const localGuirdianSchema = new Schema<TLocalGuirdian>(
 
 const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
     id:{type: String ,required:true ,unique:true},
-    password:{type: String ,required:true ,unique:true ,maxlength:[20,'password can not b more than 20 characters!']},
+    password:{type: String ,required:true ,maxlength:[20,'password can not b more than 20 characters!']},
     name:{
         type:userNameSchema,
         required:true
@@ -133,6 +133,10 @@ const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
         type:String,
         enum:['active','blocked'],
         default: "active"
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 
 })
@@ -148,6 +152,12 @@ studentSchema.pre('save',async function(next){
 
     next()
 
+})
+
+// post save middleware or hook
+studentSchema.post('save', function(doc,next){
+    doc.password = "";
+    next()
 })
 
 
