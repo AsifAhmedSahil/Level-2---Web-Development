@@ -160,6 +160,17 @@ studentSchema.post('save', function(doc,next){
     next()
 })
 
+// query middleware -- find data which is deleted and not show get data
+studentSchema.pre('find',function(next){
+    this.find({isDeleted: {$ne:true}})
+    next()
+})
+
+studentSchema.pre('findOne',function(next){
+    this.find({isDeleted: {$ne:true}})
+    next()
+})
+
 
 
 
