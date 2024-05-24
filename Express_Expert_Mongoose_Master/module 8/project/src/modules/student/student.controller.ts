@@ -1,40 +1,32 @@
 import { Request, Response } from 'express';
 import { studentServices } from './student.service';
+import studentValidationSchema from './student.validaion';
+
 // import studentValidationSchema from './student.validation';
 // import {z} from "zod"
-import studentValidationSchema from './student.validaion';
+
 
 const createStudent = async (req: Request, res: Response) => {
   try {
+    const {student:studentData} = req.body;
 
-    // creating schema using zod
-  
+    // using zod validation
+    const zodParsedData = studentValidationSchema.parse(studentData)
 
-    const studentData = req.body;
-    // console.log(req.body);
-
-    // validate data using joi
-    // const {error,value} = studentValidationSchema.validate(studentData)
-
-    const zodparseData = studentValidationSchema.parse(studentData)
+    const result = await studentServices.createStudentIntoDB(zodParsedData);
     
-
-    const result = await studentServices.createStudentIntoDB(zodparseData);
     
-    // if(error){
-    //   res.status(500).json({
-    //     success: false,
-    //     message: 'Something went wrong',
-    //     error: error.details,
-    //   });
-    // }
     res.status(200).json({
       success: true,
       message: 'Student Create Successfully',
       data: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error :any) {
+    res.status(200).json({
+      success: true,
+      message: error.message || 'Student Create Successfully',
+      
+    });
   }
 };
 
@@ -62,6 +54,7 @@ const getSingleStudent = async (req:Request,res:Response) =>{
             message: 'Student is retrived Successfully',
             data: result,
           });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error : any) {
       res.status(500).json({
         success: false,

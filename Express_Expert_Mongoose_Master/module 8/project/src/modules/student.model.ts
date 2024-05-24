@@ -1,9 +1,9 @@
 import { Schema, model,  } from 'mongoose';
-import { Guirdian, LocalGuirdian, Student, StudentMethod, studentModel, userName } from './student/student.interface';
+import { TGuirdian, TLocalGuirdian, TStudent, StudentMethod, studentModel, TuserName } from './student/student.interface';
 import validator from 'validator';
 
 
-const userNameSchema = new Schema<userName>({
+const userNameSchema = new Schema<TuserName>({
     
         firstName:{
             type:String,
@@ -33,7 +33,7 @@ const userNameSchema = new Schema<userName>({
     
 })
 
-const guirdianSchema = new Schema<Guirdian>(
+const guirdianSchema = new Schema<TGuirdian>(
     {
         fatherName:{
             type:String,
@@ -61,7 +61,7 @@ const guirdianSchema = new Schema<Guirdian>(
         },
     }
 )
-const localGuirdianSchema = new Schema<LocalGuirdian>(
+const localGuirdianSchema = new Schema<TLocalGuirdian>(
     {
         name:{
             type:String
@@ -75,7 +75,7 @@ const localGuirdianSchema = new Schema<LocalGuirdian>(
     }
 )
 
-const studentSchema = new Schema<Student ,studentModel,StudentMethod>({
+const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
     id:{type: String ,required:true ,unique:true},
     name:{
         type:userNameSchema,
@@ -137,8 +137,8 @@ const studentSchema = new Schema<Student ,studentModel,StudentMethod>({
 // create a model for schema
 
 studentSchema.methods.isUserExist = async function(id: string) {
-    const existingUser = await StudentModel.findOne({id})
+    const existingUser = await Student.findOne({id})
     return existingUser
 }
 
-export const StudentModel = model<Student,studentModel>('Student',studentSchema)
+export const Student = model<TStudent,studentModel>('Student',studentSchema)

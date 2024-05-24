@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 
-export type Guirdian ={
+export type TGuirdian ={
   fatherName:string,
   fatherOccupation:string,
   fatherNo:string,
@@ -13,23 +13,23 @@ export type Guirdian ={
   motherNo:string,
 }
 
-export type userName = {
+export type TuserName = {
     
   firstName: string;
   middleName?: string;
   lastName: string;
 }
 
-export type LocalGuirdian = {
+export type TLocalGuirdian = {
   name: string;
   address: string;
   contact:string;
 
 }
 
-export type Student = {
+export type TStudent = {
   id:string,
-  name: userName;
+  name: TuserName;
   gender:'male' | 'female'| 'others',
   contact: string,
   emergenceContactNo: string,
@@ -39,15 +39,17 @@ export type Student = {
   presentAddress: string,
   permanentAddress: string,
 
-  guirdian: Guirdian,
-  localGuirdian: LocalGuirdian,
+  guirdian: TGuirdian,
+  localGuirdian: TLocalGuirdian,
   photoUrl?: string,
   isActive: 'active' | 'blocked',
 
 };
 
+// custom instance method for check user exist in database or not -- check using id
 export type StudentMethod = {
-  isUserExist(id: string) : Promise<Student | null>;
+  // eslint-disable-next-line no-unused-vars
+  isUserExist(id: string) : Promise<TStudent | null>;
 }
 
-export type studentModel = Model<Student, Record<string, never> , StudentMethod>
+export type studentModel = Model<TStudent, Record<string, never> , StudentMethod>
