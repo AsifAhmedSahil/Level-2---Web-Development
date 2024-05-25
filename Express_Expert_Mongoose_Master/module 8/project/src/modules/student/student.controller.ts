@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { studentServices } from './student.service';
 // import studentValidationSchema from './student.validaion';
 
@@ -8,7 +8,7 @@ import { studentServices } from './student.service';
 
 
 
-const getAllStudents = async (req:Request,res:Response) =>{
+const getAllStudents = async (req:Request,res:Response ,next:NextFunction) =>{
     try {
         const result = await studentServices.getAllStudentsFromDB();
         res.status(200).json({
@@ -17,13 +17,13 @@ const getAllStudents = async (req:Request,res:Response) =>{
             data: result,
           });
     } catch (error) {
-        console.log(error)
+        next(error)
         
     }
 }
 
 // get single student from db
-const getSingleStudent = async (req:Request,res:Response) =>{
+const getSingleStudent = async (req:Request,res:Response,next:NextFunction) =>{
     try {
         const {studentId}  = req.params
         const result = await studentServices.getSingleStudentFromDB(studentId);
@@ -33,16 +33,12 @@ const getSingleStudent = async (req:Request,res:Response) =>{
             data: result,
           });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error : any) {
-      res.status(500).json({
-        success: false,
-        message: error.message ||'Something wnt wrong',
-        error: error,
-      });
+    } catch (error ) {
+      next(error)
         
     }
 }
-const deleteSingleStudent = async (req:Request,res:Response) =>{
+const deleteSingleStudent = async (req:Request,res:Response,next:NextFunction) =>{
     try {
         const {studentId}  = req.params
         const result = await studentServices.deleteStudentFromDB(studentId);
@@ -52,12 +48,8 @@ const deleteSingleStudent = async (req:Request,res:Response) =>{
             data: result,
           });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error : any) {
-      res.status(500).json({
-        success: false,
-        message: error.message ||'Something went wrong',
-        error: error,
-      });
+    } catch (error ) {
+      next(error)
         
     }
 }

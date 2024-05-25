@@ -1,8 +1,8 @@
 import { Schema, model,  } from 'mongoose';
 import { TGuirdian, TLocalGuirdian, TStudent, StudentMethod, studentModel, TuserName } from './student/student.interface';
 import validator from 'validator';
-import bcrypt from "bcrypt";
-import config from '../app/config';
+
+
 
 
 const userNameSchema = new Schema<TuserName>({
@@ -85,7 +85,7 @@ const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
         required:true,
         unique:true
     },
-    password:{type: String ,required:true ,maxlength:[20,'password can not b more than 20 characters!']},
+    
     name:{
         type:userNameSchema,
         required:true
@@ -144,23 +144,6 @@ const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
 })
 
 
-// pre save middleware or hook
-
-studentSchema.pre('save',async function(next){
-    // hashing pasword and save into DB
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const user = this
-    user.password = await bcrypt.hash(user.password,Number(config.bcrypt_salt_rounds),)
-
-    next()
-
-})
-
-// post save middleware or hook
-studentSchema.post('save', function(doc,next){
-    doc.password = "";
-    next()
-})
 
 // query middleware -- find data which is deleted and not show get data
 studentSchema.pre('find',function(next){
