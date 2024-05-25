@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Application,  Request, Response} from 'express';
 import cors from 'cors';
-import { studentRoute } from './modules/student/student.route';
-import { userRoute } from './modules/user/user.route';
+
 import globalErrorHandler from './middlewares/globalErrorHandler';
 import notFound from './middlewares/notFound';
+import router from './routes';
 
 const app: Application = express();
 // const port = 3000
@@ -14,8 +14,9 @@ app.use(cors());
 
 
 // application Route
-app.use("/api/v1/students",studentRoute)
-app.use("/api/v1/users",userRoute)
+// app.use("/api/v1/students",studentRoute)
+// app.use("/api/v1/users",userRoute)
+app.use("/api/v1",router)
 
 
 app.get('/', (req: Request, res: Response) => {
