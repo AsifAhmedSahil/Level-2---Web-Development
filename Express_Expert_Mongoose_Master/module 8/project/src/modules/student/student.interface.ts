@@ -1,6 +1,6 @@
 // import { Schema, model, connect } from 'mongoose';
 
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 
@@ -29,6 +29,7 @@ export type TLocalGuirdian = {
 
 export type TStudent = {
   id:string,
+  user: Types.ObjectId
   password:string,
   name: TuserName;
   gender:'male' | 'female'| 'others',
@@ -43,7 +44,7 @@ export type TStudent = {
   guirdian: TGuirdian,
   localGuirdian: TLocalGuirdian,
   photoUrl?: string,
-  isActive: 'active' | 'blocked',
+  
   isDeleted: boolean
 
 };

@@ -1,7 +1,8 @@
-import { object } from "joi"
+
 import config from "../../app/config"
+import { Student } from "../student.model"
 import { TStudent } from "../student/student.interface"
-import { NewUser } from "./user.interface"
+import {TUser } from "./user.interface"
 // import { TUser } from "./user.interface"
 import { User } from "./user.model"
 
@@ -9,31 +10,33 @@ import { User } from "./user.model"
 const createStudentIntoDB = async (password:string , studentData: TStudent) =>{
 
     
-    const student = new User(studentData)
+    // const student = new User(studentData)
     // if(await student.isUserExist(studentData.id)){
     //     throw new Error("user already exists!")
     // }
 
     // if password not given then use default password
-    const user : NewUser = {}
+    const userData : Partial<TUser> = {}
 
-    user.password = password || config.default_pass as string;
+    userData.password = password || config.default_pass as string;
 
-    user.role = "student"
+    userData.role = "student"
 
-    user.id = '201001912'
+    userData.id = '201001912'
 
     // create a user 
-    const result = await User.create(user)
+    const newUser = await User.create(userData)
 
-    if(Object.keys(result).length){
-        studentData.id = result.id;
-        studentData.user = result._id
+    if(Object.keys(newUser).length){
+        studentData.id = newUser.id;
+        studentData.user = newUser._id
+
+        const newStudent = await Student.create(studentData)
+        return newStudent
     }
 
     
-    // const result = student.save()
-    return result
+    
 }
 
 export const UserServices = {

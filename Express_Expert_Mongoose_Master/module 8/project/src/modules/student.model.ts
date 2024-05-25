@@ -79,6 +79,12 @@ const localGuirdianSchema = new Schema<TLocalGuirdian>(
 
 const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
     id:{type: String ,required:true ,unique:true},
+    user: {
+        type:Schema.Types.ObjectId,
+        ref: 'User',
+        required:true,
+        unique:true
+    },
     password:{type: String ,required:true ,maxlength:[20,'password can not b more than 20 characters!']},
     name:{
         type:userNameSchema,
@@ -129,11 +135,7 @@ const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
         required:true
     },
     photoUrl: {type:String},
-    isActive:{
-        type:String,
-        enum:['active','blocked'],
-        default: "active"
-    },
+    
     isDeleted: {
         type: Boolean,
         default: false
