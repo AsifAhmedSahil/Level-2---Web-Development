@@ -25,25 +25,28 @@ const localGuirdianValidationSchema = z.object({
 });
 
 // Define Zod validation schema for Student
- const studentValidationSchema = z.object({
-   
-    id: z.string().min(1),
-    password:z.string().max(20),
-    name: userNameValidationSchema,
-    gender: z.enum(['male', 'female', 'others']),
-    dateOfBirth: z.string().optional(),
-    email: z.string().email(),
-    contact: z.string(),
-    emergenceContactNo: z.string(),
-    bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-']).optional(),
-    presentAddress: z.string(),
-    permanentAddress: z.string(),
-    guirdian: guirdianValidationSchema,
-    localGuirdian: localGuirdianValidationSchema,
-    photoUrl: z.string().optional(),
-    isActive: z.enum(['active', 'blocked']), // Make it non-optional and align with Mongoose schema
-    isDeleted:z.boolean()
+ const createStudentValidationSchema = z.object({
+    body: z.object({
+        password:z.string().max(20),
+        student: z.object({
+            name: userNameValidationSchema,
+        gender: z.enum(['male', 'female', 'others']),
+        dateOfBirth: z.string().optional(),
+        email: z.string().email(),
+        contact: z.string(),
+        emergenceContactNo: z.string(),
+        bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-']).optional(),
+        presentAddress: z.string(),
+        permanentAddress: z.string(),
+        guirdian: guirdianValidationSchema,
+        localGuirdian: localGuirdianValidationSchema,
+        photoUrl: z.string().optional(),
+        })
+        
+    
+    })
+ });
 
-});
-
-export default studentValidationSchema
+export const studentValidations ={
+    studentValidationSchema: createStudentValidationSchema
+}
