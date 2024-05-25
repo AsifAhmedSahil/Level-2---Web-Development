@@ -1,13 +1,14 @@
+import { UserServices } from "./user.service";
 
 
 const createStudent = async (req: Request, res: Response) => {
     try {
-      const {student:studentData} = req.body;
+      const {password, student:studentData} = req.body;
   
       // using zod validation
-      const zodParsedData = studentValidationSchema.parse(studentData)
+    //   const zodParsedData = studentValidationSchema.parse(studentData)
   
-      const result = await studentServices.createStudentIntoDB(zodParsedData);
+      const result = await UserServices.createStudentIntoDB(password,studentData);
       
       
       res.status(200).json({
@@ -23,3 +24,8 @@ const createStudent = async (req: Request, res: Response) => {
       });
     }
   };
+
+
+  export const userController = {
+    createStudent
+  }

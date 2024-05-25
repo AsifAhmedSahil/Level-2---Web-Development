@@ -6,3 +6,9 @@ export type TUser = {
     role: 'admin'|'faculty'|'student';
     isDeleted: boolean
 }
+
+export type NewUser ={
+    password: string,
+    role:string,
+    id:string
+}
