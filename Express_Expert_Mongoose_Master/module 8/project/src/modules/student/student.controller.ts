@@ -1,4 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
+/* eslint-disable no-unused-vars */
+import {   NextFunction, Request, RequestHandler, Response, } from 'express';
 import { studentServices } from './student.service';
 // import studentValidationSchema from './student.validaion';
 
@@ -6,24 +7,29 @@ import { studentServices } from './student.service';
 // import {z} from "zod"
 
 
+// **************higher order function***************
+const catchAsync = (fn : RequestHandler) =>{
+    return (req:Request,res:Response,next:NextFunction) =>{
+        Promise.resolve(fn(req,res,next)).catch((err) => next(err))
+    }
+}
 
 
-const getAllStudents = async (req:Request,res:Response ,next:NextFunction) =>{
-    try {
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getAllStudents  = catchAsync(async (req,res ,next) =>{
+    
         const result = await studentServices.getAllStudentsFromDB();
         res.status(200).json({
             success: true,
             message: 'Student are retrived Successfully',
             data: result,
           });
-    } catch (error) {
-        next(error)
-        
-    }
-}
+    } 
+)
 
 // get single student from db
-const getSingleStudent = async (req:Request,res:Response,next:NextFunction) =>{
+const getSingleStudent : RequestHandler = async (req,res,next) =>{
     try {
         const {studentId}  = req.params
         const result = await studentServices.getSingleStudentFromDB(studentId);
@@ -38,7 +44,7 @@ const getSingleStudent = async (req:Request,res:Response,next:NextFunction) =>{
         
     }
 }
-const deleteSingleStudent = async (req:Request,res:Response,next:NextFunction) =>{
+const deleteSingleStudent : RequestHandler = async (req,res,next) =>{
     try {
         const {studentId}  = req.params
         const result = await studentServices.deleteStudentFromDB(studentId);
