@@ -1,11 +1,13 @@
 import express from "express";
 import { AcademicSemesterControllers } from "./academicSemester.controller";
+import validationSchema from "../../middlewares/validationSchema";
+import createAcademicSemesterValidationSchema from "./academicSemesterValidation";
 
 
 const router = express.Router();
 
 
-router.post("/create-academic-semester",AcademicSemesterControllers.createAcademicSemesterController)
+router.post("/create-academic-semester",validationSchema(createAcademicSemesterValidationSchema),AcademicSemesterControllers.createAcademicSemesterController)
 
 // will call controller function
 
