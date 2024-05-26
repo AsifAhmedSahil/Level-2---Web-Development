@@ -1,0 +1,17 @@
+import express from "express";
+import { AcademicSemesterControllers } from "./academicSemester.controller";
+
+
+const router = express.Router();
+
+
+router.post("/create-academic-semester",AcademicSemesterControllers.createAcademicSemesterController)
+
+// will call controller function
+
+
+// router.get('/',studentController.getAllStudents)
+// router.get('/:studentId',studentController.getSingleStudent)
+// router.delete('/:studentId',studentController.deleteSingleStudent)
+
+export const AcademicSemesterRoutes  = router;
