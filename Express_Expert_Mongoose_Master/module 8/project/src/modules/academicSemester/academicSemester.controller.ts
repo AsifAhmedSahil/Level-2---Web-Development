@@ -35,8 +35,22 @@ const getSingleAcademicSemester = catchAsync(async (req, res) => {
   });
 });
 
+const updateSingleAcademicSemester = catchAsync(async (req, res) => {
+  const { semesterId } = req.params;
+
+  const result =
+    await AcademicSemesterServices.updateSingleSemesterFromDB(semesterId,req.body);
+
+  res.status(200).json({
+    success: true,
+    message: 'Academic semester Updated Successfully',
+    data: result,
+  });
+});
+
 export const AcademicSemesterControllers = {
   createAcademicSemesterController,
   getAllAcademicSemester,
   getSingleAcademicSemester,
+  updateSingleAcademicSemester
 };
