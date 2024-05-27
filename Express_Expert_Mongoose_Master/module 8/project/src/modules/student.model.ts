@@ -135,6 +135,10 @@ const studentSchema = new Schema<TStudent ,studentModel,StudentMethod>({
         required:true
     },
     photoUrl: {type:String},
+    academicSemester: {
+        type:Schema.Types.ObjectId,
+        ref:"AcademicSemester"
+    },
     
     isDeleted: {
         type: Boolean,

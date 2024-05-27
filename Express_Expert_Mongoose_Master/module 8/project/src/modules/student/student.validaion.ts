@@ -40,6 +40,7 @@ const localGuirdianValidationSchema = z.object({
         permanentAddress: z.string(),
         guirdian: guirdianValidationSchema,
         localGuirdian: localGuirdianValidationSchema,
+        academicSemester: z.string(),
         photoUrl: z.string().optional(),
         })
         
