@@ -5,12 +5,6 @@ import catchAsync from '../../utils/catchAsync';
 
 // import studentValidationSchema from './student.validation';
 // import {z} from "zod"
-
-
-
-
-
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAllStudents  = catchAsync(async (req,res ) =>{
     
