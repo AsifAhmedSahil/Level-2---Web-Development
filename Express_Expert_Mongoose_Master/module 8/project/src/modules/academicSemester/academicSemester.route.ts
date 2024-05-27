@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post("/create-academic-semester",validationSchema(createAcademicSemesterValidationSchema),AcademicSemesterControllers.createAcademicSemesterController)
 router.get("/get-academic-semester",AcademicSemesterControllers.getAllAcademicSemester)
+router.get("/:semesterId",AcademicSemesterControllers.getSingleAcademicSemester)
 
 // will call controller function
 
