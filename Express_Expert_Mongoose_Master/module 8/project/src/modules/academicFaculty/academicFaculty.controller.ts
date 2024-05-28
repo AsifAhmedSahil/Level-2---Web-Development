@@ -40,7 +40,7 @@ const updateSingleAcademicFaculty = catchAsync(async (req, res) => {
   const { facultyId } = req.params;
 
   const result =
-    await AcademicFacultyServices.updateSingleFacultyFromDB(facultyId,req.body);
+    await AcademicFacultyServices.updateAcademicFacultyIntoDB(facultyId,req.body);
 
     console.log(result,"update")
 
