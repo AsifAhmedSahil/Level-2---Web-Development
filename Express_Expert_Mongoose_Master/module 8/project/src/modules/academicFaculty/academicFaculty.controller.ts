@@ -24,14 +24,14 @@ const getAllAcademicFaculty = catchAsync(async (req, res) => {
 });
 
 const getSingleAcademicFaculty = catchAsync(async (req, res) => {
-  const { semesterId } = req.params;
+  const { facultyId } = req.params;
 
   const result =
-    await AcademicFacultyServices.getSingleFacultyFromDB(semesterId);
+    await AcademicFacultyServices.getSingleFacultyFromDB(facultyId);
 
   res.status(200).json({
     success: true,
-    message: 'Academic Faculty Retrive Successfully',
+    message: 'Academic Faculty Retrive Successfully!',
     data: result,
   });
 });
@@ -41,6 +41,8 @@ const updateSingleAcademicFaculty = catchAsync(async (req, res) => {
 
   const result =
     await AcademicFacultyServices.updateSingleFacultyFromDB(facultyId,req.body);
+
+    console.log(result,"update")
 
   res.status(200).json({
     success: true,

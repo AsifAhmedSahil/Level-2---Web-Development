@@ -21,7 +21,7 @@ const middleRoute = [
         route: AcademicSemesterRoutes
     },
     {
-        path:"/academic-faculty",
+        path:"/academic-faculties",
         route: AcademicFacultyRoutes
     },
 ]
