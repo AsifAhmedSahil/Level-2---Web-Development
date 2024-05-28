@@ -17,4 +17,4 @@ router.patch("/:departmentId",validationSchema(AcademicDepertmentValidation.upda
 
 
 
-export const AcademicFacultyRoutes  = router;
+export const AcademicDepartmentRoutes  = router;
