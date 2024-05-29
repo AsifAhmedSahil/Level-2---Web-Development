@@ -18,6 +18,16 @@ const academicDepartment = new Schema<TAcademicDepartment>(
   { timestamps: true },
 );
 
+
+academicDepartment.pre("findOneAndUpdate" , async function(){
+  const query = this.getQuery()
+  console.log(query)
+  const isDepartmentExist = await AcademicDepartment.findOne(query)
+  if(!isDepartmentExist){
+    throw new Error("Department does not exist")
+  }
+})
+
 export const AcademicDepartment = model<TAcademicDepartment>(
   'AcademicDepartment',
   academicDepartment,

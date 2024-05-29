@@ -1,10 +1,14 @@
-import { TAcademicDepartment } from "./academicDepartment.interface";
-import { AcademicDepartment } from "./academicDepartment.model";
-
-
+import { TAcademicDepartment } from './academicDepartment.interface';
+import { AcademicDepartment } from './academicDepartment.model';
 
 const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
-  
+  // check department exist or not
+  const isDepartmentExist = await AcademicDepartment.findOne({
+    name: payload.name,
+  });
+  if (isDepartmentExist) {
+    throw new Error('Department Is Already Exist');
+  }
 
   const result = await AcademicDepartment.create(payload);
 
@@ -30,18 +34,22 @@ const getSingleDepartmentFromDB = async (id: string) => {
 };
 
 const updateAcademicDepartmentIntoDB = async (
-    id: string,
-    payload: Partial<TAcademicDepartment>,
-  ) => {
-    const result = await AcademicDepartment.findOneAndUpdate({ _id: id }, payload, {
+  id: string,
+  payload: Partial<TAcademicDepartment>,
+) => {
+  const result = await AcademicDepartment.findOneAndUpdate(
+    { _id: id },
+    payload,
+    {
       new: true,
-    });
-    return result;
-  };
+    },
+  );
+  return result;
+};
 
 export const AcademicDepartmentServices = {
-    createAcademicDepartmentIntoDB,
-    getAllDepartmentsFromDB,
-    getSingleDepartmentFromDB,
-    updateAcademicDepartmentIntoDB
+  createAcademicDepartmentIntoDB,
+  getAllDepartmentsFromDB,
+  getSingleDepartmentFromDB,
+  updateAcademicDepartmentIntoDB,
 };
