@@ -10,7 +10,7 @@ const router  = Router()
 
 const middleRoute = [
     {
-        path:"/student",
+        path:"/students",
         route: studentRoute
     },
     {

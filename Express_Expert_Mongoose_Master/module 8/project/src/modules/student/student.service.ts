@@ -6,12 +6,22 @@ import { Student } from "../student.model";
 
 
 const getAllStudentsFromDB = async () =>{
-    const result = await Student.find()
+    const result = await Student.find().populate("academicSemester").populate({
+        path: "academicDepartment",
+        populate: {
+            path:"academicFaculty"
+        }
+    })
     return result
 }
 
 const getSingleStudentFromDB = async (id:string) =>{
-    const result = await Student.find({id})
+    const result = await Student.find({id}).populate("academicSemester").populate({
+        path: "academicDepartment",
+        populate: {
+            path:"academicFaculty"
+        }
+    })
     return result
 }
 const deleteStudentFromDB = async (id:string) =>{

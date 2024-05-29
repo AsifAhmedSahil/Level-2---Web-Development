@@ -45,6 +45,7 @@ export type TStudent = {
   localGuirdian: TLocalGuirdian,
   photoUrl?: string,
   academicSemester : Types.ObjectId,
+  academicDepartment : Types.ObjectId,
   isDeleted: boolean
 
 };
