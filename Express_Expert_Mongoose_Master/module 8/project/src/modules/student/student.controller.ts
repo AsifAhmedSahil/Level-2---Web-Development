@@ -31,6 +31,18 @@ const getSingleStudent  = catchAsync(async (req,res) =>{
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 })
+const updateSingleStudent  = catchAsync(async (req,res) =>{
+    
+    const {studentId}  = req.params
+    const {student} = req.body
+    const result = await studentServices.updateStudentFromDB(studentId,student);
+    res.status(200).json({
+        success: true,
+        message: 'Student updated Successfully',
+        data: result,
+      });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+})
 const deleteSingleStudent  = catchAsync(async (req,res) =>{
     
     const {studentId}  = req.params
@@ -47,5 +59,6 @@ export const studentController = {
     
     getAllStudents,
     getSingleStudent,
+    updateSingleStudent,
     deleteSingleStudent
 }

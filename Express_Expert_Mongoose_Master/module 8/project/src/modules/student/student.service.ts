@@ -5,7 +5,8 @@ import { Student } from "../student.model";
 import AppError from "../../error/AppError";
 import httpStatus from "http-status";
 import { User } from "../user/user.model";
-// import { TStudent } from "./student.interface";
+import { TStudent } from "./student.interface";
+
 
 
 
@@ -20,12 +21,16 @@ const getAllStudentsFromDB = async () =>{
 }
 
 const getSingleStudentFromDB = async (id:string) =>{
-    const result = await Student.find({id}).populate("academicSemester").populate({
+    const result = await Student.findOne({id}).populate("academicSemester").populate({
         path: "academicDepartment",
         populate: {
             path:"academicFaculty"
         }
     })
+    return result
+}
+const updateStudentFromDB = async (id:string,payload: Partial<TStudent>) =>{
+    const result = await Student.findOneAndUpdate({id},payload)
     return result
 }
 const deleteStudentFromDB = async (id:string) =>{
@@ -70,5 +75,6 @@ export const studentServices = {
     
     getAllStudentsFromDB,
     getSingleStudentFromDB,
+    updateStudentFromDB,
     deleteStudentFromDB
 }

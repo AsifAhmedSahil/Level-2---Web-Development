@@ -28,7 +28,7 @@ const getAllDepartmentsFromDB = async () => {
 // }
 
 const getSingleDepartmentFromDB = async (id: string) => {
-  const result = await AcademicDepartment.findById(id).populate("academicFaculty");
+  const result = await AcademicDepartment.findOne({id}).populate("academicFaculty");
 
   return result;
 };
