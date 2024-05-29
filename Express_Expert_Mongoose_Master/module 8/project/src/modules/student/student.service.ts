@@ -38,8 +38,24 @@ const updateStudentFromDB = async (id:string,payload: Partial<TStudent>) =>{
         ...remainingStudentData
     } 
 
+    if(name && Object.keys(name).length) {
+        for(const [key,value] of Object.entries(name)){{
+            modifiedData[`name.${key}`] = value
+        }}
+    }
+    if(guirdian && Object.keys(guirdian).length) {
+        for(const [key,value] of Object.entries(guirdian)){{
+            modifiedData[`guirdian.${key}`] = value
+        }}
+    }
+    if(localGuirdian && Object.keys(localGuirdian).length) {
+        for(const [key,value] of Object.entries(localGuirdian)){{
+            modifiedData[`localGuirdian.${key}`] = value
+        }}
+    }
 
-    const result = await Student.findOneAndUpdate({id},payload)
+
+    const result = await Student.findOneAndUpdate({id},modifiedData , {new:true , runValidators:true})
     return result
 }
 const deleteStudentFromDB = async (id:string) =>{
