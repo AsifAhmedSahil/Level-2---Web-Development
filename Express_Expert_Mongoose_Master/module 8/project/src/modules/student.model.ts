@@ -1,6 +1,7 @@
 import { Schema, model,  } from 'mongoose';
 import { TGuirdian, TLocalGuirdian, TStudent, StudentMethod, studentModel, TuserName } from './student/student.interface';
 import validator from 'validator';
+import AppError from '../error/AppError';
 
 
 
@@ -162,6 +163,16 @@ studentSchema.pre('find',function(next){
 studentSchema.pre('findOne',function(next){
     this.find({isDeleted: {$ne:true}})
     next()
+})
+
+studentSchema.pre("findOneAndUpdate",async function(next){
+    const query = this.getQuery()
+  console.log(query)
+  const isStudentExist = await Student.findOne(query)
+  if(!isStudentExist){
+    throw new AppError(404,"Student does not exist")
+  }
+  next()
 })
 
 
