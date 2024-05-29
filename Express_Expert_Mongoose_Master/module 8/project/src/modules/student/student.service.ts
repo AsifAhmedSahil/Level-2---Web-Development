@@ -30,6 +30,15 @@ const getSingleStudentFromDB = async (id:string) =>{
     return result
 }
 const updateStudentFromDB = async (id:string,payload: Partial<TStudent>) =>{
+
+
+    const {name,localGuirdian,guirdian,...remainingStudentData} = payload
+
+    const modifiedData : Record<string,unknown> = {
+        ...remainingStudentData
+    } 
+
+
     const result = await Student.findOneAndUpdate({id},payload)
     return result
 }
