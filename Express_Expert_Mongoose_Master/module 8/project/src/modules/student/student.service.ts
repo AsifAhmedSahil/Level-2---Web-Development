@@ -10,8 +10,19 @@ import { TStudent } from "./student.interface";
 
 
 
-const getAllStudentsFromDB = async () =>{
-    const result = await Student.find().populate("academicSemester").populate({
+const getAllStudentsFromDB = async (query:Record<string,unknown>) =>{
+
+    let searchTerm = ""
+
+    if(query?.searchTerm){
+        searchTerm = query?.searchTerm as string
+    }
+
+    const result = await Student.find({
+        $or : ['email','name.firstName','presentAddress'].map((field) => ({
+            [field]: { $regex: searchTerm , $options: "i" }
+        }))
+    }).populate("academicSemester").populate({
         path: "academicDepartment",
         populate: {
             path:"academicFaculty"

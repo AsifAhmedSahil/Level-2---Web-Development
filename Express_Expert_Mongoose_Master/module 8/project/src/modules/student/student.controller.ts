@@ -7,8 +7,9 @@ import catchAsync from '../../utils/catchAsync';
 // import {z} from "zod"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAllStudents  = catchAsync(async (req,res ) =>{
+   
     
-        const result = await studentServices.getAllStudentsFromDB();
+        const result = await studentServices.getAllStudentsFromDB(req.query);
         res.status(200).json({
             success: true,
             message: 'Student are retrived Successfully',
