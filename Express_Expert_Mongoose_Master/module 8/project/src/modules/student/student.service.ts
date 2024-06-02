@@ -11,6 +11,8 @@ import { TStudent } from "./student.interface";
 
 
 const getAllStudentsFromDB = async (query:Record<string,unknown>) =>{
+    console.log(query)
+    const queryObj = {...query}
 
     let searchTerm = ""
 
@@ -18,11 +20,19 @@ const getAllStudentsFromDB = async (query:Record<string,unknown>) =>{
         searchTerm = query?.searchTerm as string
     }
 
-    const result = await Student.find({
-        $or : ['email','name.firstName','presentAddress'].map((field) => ({
+    const studentSearchableFields = ['email','name.firstName','presentAddress']
+
+    const searchQuery = Student.find({
+        $or : studentSearchableFields.map((field) => ({
             [field]: { $regex: searchTerm , $options: "i" }
         }))
-    }).populate("academicSemester").populate({
+    })
+
+    const excludeFields = ['searchTerm']
+    excludeFields.forEach((el) => delete queryObj[el])
+    // console.log(query,queryObj)
+
+    const result = await searchQuery.find(queryObj).populate("academicSemester").populate({
         path: "academicDepartment",
         populate: {
             path:"academicFaculty"
