@@ -4,6 +4,7 @@ import { userRoute } from "../modules/user/user.route";
 import { AcademicSemesterRoutes } from "../modules/academicSemester/academicSemester.route";
 import { AcademicFacultyRoutes } from "../modules/academicFaculty/academicFaculty.route";
 import { AcademicDepartmentRoutes } from "../modules/academicDepartment/academicDepartment.route";
+import { CourseRoutes } from "../modules/courses/courses.route";
 
 
 const router  = Router()
@@ -28,6 +29,10 @@ const middleRoute = [
     {
         path:"/academic-departments",
         route: AcademicDepartmentRoutes
+    },
+    {
+        path:"/courses",
+        route: CourseRoutes
     },
 ]
 

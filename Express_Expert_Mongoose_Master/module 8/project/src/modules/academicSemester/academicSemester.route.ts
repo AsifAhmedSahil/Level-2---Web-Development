@@ -12,11 +12,5 @@ router.get("/get-academic-semester",AcademicSemesterControllers.getAllAcademicSe
 router.get("/:semesterId",AcademicSemesterControllers.getSingleAcademicSemester)
 router.patch("/:semesterId",validationSchema(AcademicSemesterValidationSchemas.updateAcademicSemesterValidationSchema),AcademicSemesterControllers.updateSingleAcademicSemester)
 
-// will call controller function
-
-
-// router.get('/',studentController.getAllStudents)
-// router.get('/:studentId',studentController.getSingleStudent)
-// router.delete('/:studentId',studentController.deleteSingleStudent)
 
 export const AcademicSemesterRoutes  = router;

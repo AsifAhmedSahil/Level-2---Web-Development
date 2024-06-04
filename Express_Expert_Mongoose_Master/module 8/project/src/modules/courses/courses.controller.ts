@@ -13,7 +13,8 @@ const createCourseController = catchAsync(async(req,res) =>{
 })
 
 const getAllCourseController = catchAsync(async(req,res) =>{
-    const result = await CourseServices.getAllCoursesFromDB()
+    const result = await CourseServices.getAllCoursesFromDB(req.query)
+    console.log(result)
 
     res.status(200).send({
         success:true,
