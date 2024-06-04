@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 router.post("/create-course",validationSchema(courseValidation.createCourseValidationSchema),courseControllers.createCourseController)
-router.get("/get-courses",courseControllers.getAllCourseController)
+router.get("/",courseControllers.getAllCourseController)
 router.get("/:courseId",courseControllers.getSingleCourseController)
 // router.patch("/:semesterId",validationSchema(AcademicSemesterValidationSchemas.updateAcademicSemesterValidationSchema),AcademicSemesterControllers.updateSingleAcademicSemester)
 router.delete("/:courseId",courseControllers.deleteCourseController)

@@ -23,8 +23,10 @@ const getAllCourseController = catchAsync(async(req,res) =>{
     })
 })
 const getSingleCourseController = catchAsync(async(req,res) =>{
-    const {id} = req.params
-    const result = await CourseServices.getSingleCoursesFromDB(id)
+    
+    const { courseId } = req.params;
+    
+    const result = await CourseServices.getSingleCoursesFromDB(courseId)
 
 
     res.status(200).send({

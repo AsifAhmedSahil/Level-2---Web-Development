@@ -27,6 +27,7 @@ const getAllAcademicDepartment = catchAsync(async (req, res) => {
 
 const getSingleAcademicDepartment = catchAsync(async (req, res) => {
   const { departmentId } = req.params;
+  // console.log(departmentId)
 
   const result =
     await AcademicDepartmentServices.getSingleDepartmentFromDB(departmentId);
