@@ -36,8 +36,8 @@ const getSingleCourseController = catchAsync(async(req,res) =>{
     })
 })
 const deleteCourseController = catchAsync(async(req,res) =>{
-    const {id} = req.params
-    const result = await CourseServices.deleteCoursesFromDB(id)
+    const {courseId} = req.params
+    const result = await CourseServices.deleteCoursesFromDB(courseId)
 
 
     res.status(200).send({

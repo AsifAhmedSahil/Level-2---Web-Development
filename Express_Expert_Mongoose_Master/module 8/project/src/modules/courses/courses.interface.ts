@@ -10,6 +10,7 @@ export type TCourse = {
     prefix:string;
     code:number;
     credits: number;
-    preReqsiteCourses : [TPreReqsiteCourses] 
+    preReqsiteCourses : [TPreReqsiteCourses] ;
+    isDeleted?:boolean
 
 }
