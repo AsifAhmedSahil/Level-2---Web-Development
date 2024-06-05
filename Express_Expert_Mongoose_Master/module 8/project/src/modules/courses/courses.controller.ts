@@ -66,7 +66,7 @@ const assignFaculty = catchAsync(async(req,res) =>{
 
     res.status(200).send({
         success:true,
-        message: "Course deleted Successfully",
+        message: "faculty Assign Successfully",
         data:result
     })
 })
