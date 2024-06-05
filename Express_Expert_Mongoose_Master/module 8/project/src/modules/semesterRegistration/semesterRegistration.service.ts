@@ -4,6 +4,7 @@ import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TSemesterRegistration } from './semesterRegistration.interface';
 import { semesterRegistration } from './semesterRegistration.model';
 import QueryBuilders from '../../builders/QueryBuilders';
+import { RegistrationStatus } from './semesterRegistration.constants';
 
 const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration,
@@ -12,8 +13,8 @@ const createSemesterRegistrationIntoDB = async (
 //   check is there any registered semeter "UPCOMING" or "ONGOING"
     const isThereAnyUpcomingOrOngoingSemester = await semesterRegistration.findOne({
         $or:[
-            {status: "UPCOMING"},
-            {status: "ONGOING"},
+            {status: RegistrationStatus.UPCOMING},
+            {status: RegistrationStatus.ONGOING},
         ]
     })
     if(isThereAnyUpcomingOrOngoingSemester){
@@ -79,15 +80,15 @@ const updateSemesterRegistrationIntoDB = async(id:string, payload:Partial<TSemes
     // check is the semester is ENDED then not update this semester
     const currentSemesterStatus = isSemesterExist?.status
     const requestedSemester = payload?.status
-    if(currentSemesterStatus === "ENDED"){
+    if(currentSemesterStatus === RegistrationStatus.ENDED){
         throw new AppError(httpStatus.BAD_REQUEST,`this semester is already ${currentSemesterStatus}`)
     }
 
     // apply business logic ==> Upcoming --> Ongoing --> Ended *** 
-    if(currentSemesterStatus === "UPCOMING" && requestedSemester === "ENDED"){
+    if(currentSemesterStatus === RegistrationStatus.UPCOMING && requestedSemester === RegistrationStatus.ENDED){
         throw new AppError(httpStatus.BAD_REQUEST,`Ypu can not update status directly from ${currentSemesterStatus} to ${requestedSemester}`)
     }
-    if(currentSemesterStatus === "ONGOING" && requestedSemester === "UPCOMING"){
+    if(currentSemesterStatus === RegistrationStatus.ONGOING && requestedSemester === RegistrationStatus.UPCOMING){
         throw new AppError(httpStatus.BAD_REQUEST,`Ypu can not update status directly from ${currentSemesterStatus} to ${requestedSemester}`)
     }
     
