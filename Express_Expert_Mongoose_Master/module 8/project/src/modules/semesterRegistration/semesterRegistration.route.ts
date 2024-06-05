@@ -11,8 +11,8 @@ const router = express.Router();
 
 
 router.post("/create-semester-registration",validationSchema(semesterRegistrationValidation.createSemesterRegistrationValidationSchema),semesterRegistrationControllers.createSemesterRegistration)
-// router.get("/get-academic-semester",AcademicSemesterControllers.getAllAcademicSemester)
-// router.get("/:semesterId",AcademicSemesterControllers.getSingleAcademicSemester)
+router.get("/",semesterRegistrationControllers.getAllSemesterRegistration)
+router.get("/:id",semesterRegistrationControllers.getSingleSemesterRegistration)
 // router.patch("/:semesterId",validationSchema(AcademicSemesterValidationSchemas.updateAcademicSemesterValidationSchema),AcademicSemesterControllers.updateSingleAcademicSemester)
 
 
