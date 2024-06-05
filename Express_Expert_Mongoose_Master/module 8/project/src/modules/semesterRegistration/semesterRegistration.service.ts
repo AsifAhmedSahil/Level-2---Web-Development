@@ -78,9 +78,21 @@ const updateSemesterRegistrationIntoDB = async(id:string, payload:Partial<TSemes
 
     // check is the semester is ENDED then not update this semester
     const currentSemesterStatus = isSemesterExist?.status
+    const requestedSemester = payload?.status
     if(currentSemesterStatus === "ENDED"){
         throw new AppError(httpStatus.BAD_REQUEST,`this semester is already ${currentSemesterStatus}`)
     }
+
+    // apply business logic ==> Upcoming --> Ongoing --> Ended *** 
+    if(currentSemesterStatus === "UPCOMING" && requestedSemester === "ENDED"){
+        throw new AppError(httpStatus.BAD_REQUEST,`Ypu can not update status directly from ${currentSemesterStatus} to ${requestedSemester}`)
+    }
+    if(currentSemesterStatus === "ONGOING" && requestedSemester === "UPCOMING"){
+        throw new AppError(httpStatus.BAD_REQUEST,`Ypu can not update status directly from ${currentSemesterStatus} to ${requestedSemester}`)
+    }
+    
+    const result = await semesterRegistration.findByIdAndUpdate(id,payload,{new:true , runValidators:true})
+    return result
 }
 
 export const semesterRegistrationServices = {
