@@ -58,6 +58,19 @@ const updateCourseController = catchAsync(async(req,res) =>{
     })
 })
 
+const assignFaculty = catchAsync(async(req,res) =>{
+    const {courseId} = req.params
+    const {faculties} = req.body
+    const result = await CourseServices.assignFacultyServiceIntoDB(courseId,faculties)
+
+
+    res.status(200).send({
+        success:true,
+        message: "Course deleted Successfully",
+        data:result
+    })
+})
+
 // TODO:update course baki****
 
 
@@ -66,6 +79,7 @@ export const courseControllers = {
     getSingleCourseController,
     getAllCourseController,
     deleteCourseController,
-    updateCourseController
+    updateCourseController,
+    assignFaculty
 
 }
