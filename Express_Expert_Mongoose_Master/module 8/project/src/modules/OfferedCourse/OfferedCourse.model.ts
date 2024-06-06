@@ -44,11 +44,11 @@ TOfferedCourse>({
         type: Number,
         required:true
     },
-    days:{
+    days:[{
         type: String,
         required:true,
         enum:Days
-    },
+    }],
     startTime:{
         type: String,
         required:true

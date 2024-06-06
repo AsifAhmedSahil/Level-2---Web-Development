@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import AppError from '../../error/AppError';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TSemesterRegistration } from './semesterRegistration.interface';
-import { semesterRegistration } from './semesterRegistration.model';
+import { semesterRegistrationModel } from './semesterRegistration.model';
 import QueryBuilders from '../../builders/QueryBuilders';
 import { RegistrationStatus } from './semesterRegistration.constants';
 
@@ -11,7 +11,7 @@ const createSemesterRegistrationIntoDB = async (
 ) => {
   const academicSemester = payload?.academicSemester;
 //   check is there any registered semeter "UPCOMING" or "ONGOING"
-    const isThereAnyUpcomingOrOngoingSemester = await semesterRegistration.findOne({
+    const isThereAnyUpcomingOrOngoingSemester = await semesterRegistrationModel.findOne({
         $or:[
             {status: RegistrationStatus.UPCOMING},
             {status: RegistrationStatus.ONGOING},
@@ -38,7 +38,7 @@ const createSemesterRegistrationIntoDB = async (
 
   // check if the semester already registered or not
   const isSemesterRegistrationExists =
-    await semesterRegistration.findById(academicSemester);
+    await semesterRegistrationModel.findById(academicSemester);
   if (isSemesterRegistrationExists) {
     throw new AppError(
       httpStatus.CONFLICT,
@@ -46,13 +46,13 @@ const createSemesterRegistrationIntoDB = async (
     );
   }
 
-  const result = await semesterRegistration.create(payload);
+  const result = await semesterRegistrationModel.create(payload);
   return result;
 };
 
 const getSemesterRegistrationFromDB = async(query: Record<string, unknown>) =>{
     const registredSemester = new QueryBuilders(
-        semesterRegistration.find().populate("academicSemester"),
+        semesterRegistrationModel.find().populate("academicSemester"),
         query
     ).filter()
     .sort()
@@ -65,13 +65,13 @@ const getSemesterRegistrationFromDB = async(query: Record<string, unknown>) =>{
 
 const getSingleSemesterRegistrationFromDB = async(id:string) =>{
 
-    const result = await semesterRegistration.findById(id)
+    const result = await semesterRegistrationModel.findById(id)
     return result
 }
 const updateSemesterRegistrationIntoDB = async(id:string, payload:Partial<TSemesterRegistration>) =>{
 
     // check if the semester is already exist or not***
-    const isSemesterExist = await semesterRegistration.findById(id)
+    const isSemesterExist = await semesterRegistrationModel.findById(id)
     if(!isSemesterExist){
         throw new AppError(httpStatus.NOT_FOUND,"this semster is not found in database")
     }
@@ -92,7 +92,7 @@ const updateSemesterRegistrationIntoDB = async(id:string, payload:Partial<TSemes
         throw new AppError(httpStatus.BAD_REQUEST,`Ypu can not update status directly from ${currentSemesterStatus} to ${requestedSemester}`)
     }
     
-    const result = await semesterRegistration.findByIdAndUpdate(id,payload,{new:true , runValidators:true})
+    const result = await semesterRegistrationModel.findByIdAndUpdate(id,payload,{new:true , runValidators:true})
     return result
 }
 
