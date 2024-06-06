@@ -30,7 +30,15 @@ const createOfferedCourseValidationSchema = z.object({
           message: "Invalid time format, excepted 'HH:MM' in 24 hours format",
         },
       )
-  }),
+  }).refine((body) =>{
+    const start = new Date(`1970-01-01T${body.startTime}:00`);
+    const end = new Date(`1970-01-01T${body.startTime}:00`);
+
+    return end > start
+  },
+{
+    message: "start time should be before end time!"
+}),
 });
 
 const updateOfferedCourseValidationSchema = z.object({
