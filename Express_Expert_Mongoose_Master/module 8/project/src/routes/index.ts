@@ -8,6 +8,7 @@ import { CourseRoutes } from "../modules/courses/courses.route";
 import { semesterRegistrationRoute } from "../modules/semesterRegistration/semesterRegistration.route";
 import { OfferedCoursesRoute } from "../modules/OfferedCourse/OfferedCourse.route";
 import { FacultyRoutes } from "../modules/faculty/faculty.route";
+import { AdminRouter } from "../modules/admin/admin.route";
 
 
 const router  = Router()
@@ -48,7 +49,11 @@ const middleRoute = [
     {
         path:"/faculty",
         route:FacultyRoutes
-    }
+    },
+    {
+        path:"/admin",
+        route:AdminRouter
+    },
 ]
 
 middleRoute.forEach(route => router.use(route.path,route.route))

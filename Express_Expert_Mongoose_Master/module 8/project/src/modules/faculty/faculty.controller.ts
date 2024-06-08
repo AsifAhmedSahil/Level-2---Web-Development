@@ -25,13 +25,13 @@ const getSingleFaculty = catchAsync(async(req,res) =>{
 
 })
 const updateFaculty = catchAsync(async(req,res) =>{
-    const {id} = req.params;
+    // const {id} = req.params;
     // const result = await facultyServices.updateFacultyIntoDB(id,req.body)
 
     res.status(200).json({
         success: true,
         message: "Faculty updated Successfully",
-        // data:result
+        // data:result1
 
     })
 
