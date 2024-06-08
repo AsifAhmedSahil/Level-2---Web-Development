@@ -10,6 +10,11 @@ const router = express.Router();
 
 // will call controller function
 router.post(
+  '/create-faculty',
+  validationSchema(studentValidations.createStudentValidationSchema),
+  userControllers.createStudent,
+);
+router.post(
   '/create-student',
   validationSchema(studentValidations.createStudentValidationSchema),
   userControllers.createStudent,
