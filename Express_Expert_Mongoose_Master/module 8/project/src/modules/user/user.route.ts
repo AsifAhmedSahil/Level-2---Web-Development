@@ -20,5 +20,10 @@ router.post(
   validationSchema(studentValidations.createStudentValidationSchema),
   userControllers.createStudent,
 );
+router.post(
+  '/create-admin',
+  validationSchema(studentValidations.createStudentValidationSchema),
+  userControllers.createStudent,
+);
 
 export const userRoute = router;
