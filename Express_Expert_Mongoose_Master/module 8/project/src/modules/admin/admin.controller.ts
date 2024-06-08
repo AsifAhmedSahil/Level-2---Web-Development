@@ -24,7 +24,19 @@ const getSingleAdmin = catchAsync(async(req,res) =>{
     })
 })
 
+const deleteAdmin = catchAsync(async(req,res) =>{
+    const {id} = req.params
+    const result = await AdminServices.deleteAdminFromDB(id)
+
+    res.status(200).json({
+        success: true,
+        message:"Admin Deleted Successfully",
+        data:result
+    })
+})
+
 export const AdminControllers = {
     getAllAdmin,
-    getSingleAdmin
+    getSingleAdmin,
+    deleteAdmin
 } 
