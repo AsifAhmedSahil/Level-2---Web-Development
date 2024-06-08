@@ -13,7 +13,7 @@ const router = express.Router();
 router.post(
   '/create-faculty',
   validationSchema(FacultyValidations.createFacultyValidationSchema),
-  userControllers.createStudent,
+  userControllers.createFaculty,
 );
 router.post(
   '/create-student',
