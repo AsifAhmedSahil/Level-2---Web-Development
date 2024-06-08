@@ -14,7 +14,21 @@ const createStudent = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createFaculty = catchAsync(async (req, res) => {
+  const { password, faculty: facultyData } = req.body;
+  // using zod validation
+  
+
+  const result = await UserServices.createFacultyIntoDB(password, facultyData);
+
+  res.status(200).json({
+    success: true,
+    message: 'Faculty Create Successfully',
+    data: result,
+  });
+});
 
 export const userControllers = {
   createStudent,
+  createFaculty
 };

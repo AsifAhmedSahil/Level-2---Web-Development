@@ -8,9 +8,12 @@ import { TStudent } from "../student/student.interface"
 import {TUser } from "./user.interface"
 // import { TUser } from "./user.interface"
 import { User } from "./user.model"
-import { generateStudentId } from "./user.utils"
+import { generateStudentId, generatedFacultyId } from "./user.utils"
 import AppError from "../../error/AppError"
 import httpStatus from "http-status"
+import { TFaculty } from "../faculty/faculty.interface"
+import { AcademicDepartment } from "../academicDepartment/academicDepartment.model"
+import { Faculty } from "../faculty/faculty.model"
 
 
 const createStudentIntoDB = async (password:string , payload: TStudent) =>{
@@ -71,6 +74,65 @@ const createStudentIntoDB = async (password:string , payload: TStudent) =>{
     
 }
 
+const createFacultyIntoDB = async(password:string, payload: TFaculty) =>{
+    // first create a user , thats why create empty user object name as userData
+    const userData: Partial<TUser> = {};
+
+    // if password is not given then user default password
+    userData.password = password || (config.default_pass as string)
+
+    // set user role
+    userData.role = 'faculty'
+
+    // find department and check department is exist or not
+    const academicDepartment = await AcademicDepartment.findById(payload.academicDepartment)
+
+    if(!academicDepartment){
+        throw new AppError(httpStatus.NOT_FOUND,"Academic Department Not Found!")
+    }
+
+    const session = await mongoose.startSession()
+
+    try {
+        session.startTransaction();
+        // set generated id
+        userData.id = await generatedFacultyId()
+        // create new user 
+        const newUser = await User.create([userData],{session})
+
+        // create new faculty -------(step 1)
+
+        if(!newUser.length){
+            throw new AppError(httpStatus.NOT_FOUND,"new user not created!")
+        }
+
+        // set id for faculty & set _id for user referencing id
+        payload.id = newUser[0].id
+        payload.user = newUser[0]._id
+
+        // create new faculty (step 2)
+
+        const newFaculty = await Faculty.create([payload],{session})
+
+        // check if new faculty created or not
+        if(!newFaculty.length){
+            throw new AppError(httpStatus.NOT_FOUND,"new faculty not created!")
+        }
+
+        await session.commitTransaction();
+        await session.endSession()
+        return newFaculty
+
+    } catch (error) {
+        await session.abortTransaction()
+        await session.endSession()
+        throw new Error("Error");
+        
+    }
+
+}
+
 export const UserServices = {
-    createStudentIntoDB
+    createStudentIntoDB,
+    createFacultyIntoDB
 }
