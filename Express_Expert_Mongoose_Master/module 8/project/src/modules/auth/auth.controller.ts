@@ -7,7 +7,8 @@ const loginUser = catchAsync(async(req,res) =>{
 
     res.status(200).json({
         success:true,
-        message:"login user successfully"
+        message:"login user successfully",
+        data:result
     })
 
     return result
