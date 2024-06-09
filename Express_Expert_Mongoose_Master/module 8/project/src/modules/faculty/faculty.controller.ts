@@ -2,6 +2,7 @@ import catchAsync from "../../utils/catchAsync";
 import { facultyServices } from "./faculty.service";
 
 const getAllFaculty = catchAsync(async(req,res) =>{
+    // console.log(req.user)
     
     const result = await facultyServices.getAllFacultyFromDB(req.query)
     
