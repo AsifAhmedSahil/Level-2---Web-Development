@@ -5,10 +5,11 @@ import express from 'express';
 import { facultyControlers } from './faculty.controller';
 import validationSchema from '../../middlewares/validationSchema';
 import { FacultyValidations } from './faculty.validation';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.get('/', facultyControlers.getAllFaculty);
+router.get('/',auth(), facultyControlers.getAllFaculty);
 
 router.get('/:id', facultyControlers.getSingleFaculty);
 
