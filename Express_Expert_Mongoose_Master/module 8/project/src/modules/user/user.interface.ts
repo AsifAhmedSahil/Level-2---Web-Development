@@ -6,6 +6,7 @@ export interface TUser  {
     id:string;
     password: string;
     needPasswordChange: boolean;
+    passwordChangeAt:Date;
     status:'in-progress' | 'blocked';
     role: 'admin'|'faculty'|'student';
     isDeleted: boolean
