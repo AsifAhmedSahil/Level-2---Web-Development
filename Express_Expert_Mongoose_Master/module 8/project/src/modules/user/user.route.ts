@@ -15,7 +15,7 @@ const router = express.Router();
 // will call controller function
 router.post(
   '/create-faculty',
-  auth(USER_ROLE.admin),
+  // auth(USER_ROLE.admin),
   validationSchema(FacultyValidations.createFacultyValidationSchema),
   userControllers.createFaculty,
 );

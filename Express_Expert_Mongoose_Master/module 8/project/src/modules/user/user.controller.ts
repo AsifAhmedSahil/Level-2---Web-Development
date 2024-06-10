@@ -40,7 +40,7 @@ const createAdmin = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'Faculty Create Successfully',
+    message: 'Admin Create Successfully',
     data: result,
   });
 });

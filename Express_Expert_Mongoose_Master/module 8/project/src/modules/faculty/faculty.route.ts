@@ -6,10 +6,11 @@ import { facultyControlers } from './faculty.controller';
 import validationSchema from '../../middlewares/validationSchema';
 import { FacultyValidations } from './faculty.validation';
 import auth from '../../middlewares/auth';
+import { USER_ROLE } from '../user/user.constants';
 
 const router = express.Router();
 
-router.get('/',auth(), facultyControlers.getAllFaculty);
+router.get('/',auth(USER_ROLE.admin,USER_ROLE.faculty), facultyControlers.getAllFaculty);
 
 router.get('/:id', facultyControlers.getSingleFaculty);
 
