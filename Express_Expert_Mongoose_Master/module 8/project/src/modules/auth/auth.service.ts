@@ -4,8 +4,9 @@ import AppError from "../../error/AppError";
 import { User } from "../user/user.model";
 import { TLoginUser } from "./auth.interface";
 import config from "../../app/config";
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import  { JwtPayload } from 'jsonwebtoken'
 import bcrypt from "bcrypt"
+import { createToken } from "./auth.utils";
 
 
 
@@ -43,10 +44,11 @@ const loginUser = async(payload:TLoginUser) =>{
         role:user.role
     }
 
-    const accessToken = jwt.sign(jwtPayload,config.jwt_access_secret as string,{expiresIn: '10d'})
+    const accessToken = createToken(jwtPayload,config.jwt_access_secret as string,'10d')
+    const refreshToken = createToken(jwtPayload,config.jwt_refresh_secret as string,'365d')
 
     
-    return {accessToken,needsPasswordChange:user?.needPasswordChange}
+    return {accessToken,refreshToken,needsPasswordChange:user?.needPasswordChange}
 
 }
 
