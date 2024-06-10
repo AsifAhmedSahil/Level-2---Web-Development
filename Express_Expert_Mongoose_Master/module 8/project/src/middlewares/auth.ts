@@ -45,9 +45,9 @@ const auth = (...requireRoles : TUserRole[]) => {
     }
 
     // check password changed or not ********** ERROR **********
-    if(user.passwordChangeAt && User.idJwtIssuedBeforePasswordChanged(user.passwordChangeAt , iat as number)){
-      throw new AppError(httpStatus.UNAUTHORIZED,"You are not authorized")
-    }
+    // if(user.passwordChangeAt && User.idJwtIssuedBeforePasswordChanged(user.passwordChangeAt , iat as number)){
+    //   throw new AppError(httpStatus.UNAUTHORIZED,"You are not authorized")
+    // }
 
         if(requireRoles && !requireRoles.includes(role)){
             throw new AppError(httpStatus.UNAUTHORIZED,"You are not authorised")
