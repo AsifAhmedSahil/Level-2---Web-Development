@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { userStatus } from "./user.constants";
+
 
 
 const userValidationSchema = z.object({
@@ -7,5 +9,14 @@ const userValidationSchema = z.object({
     
     
 })
+const changeStatusValidation = z.object({
+    body: z.object({
+        status: z.enum([...userStatus] as [string, ...string[]])
+    })
+})
 
-export default userValidationSchema
+export const userValidation = {
+    userValidationSchema,
+    changeStatusValidation
+
+}

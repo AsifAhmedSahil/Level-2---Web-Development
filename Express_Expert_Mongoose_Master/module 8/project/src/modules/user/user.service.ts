@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import config from '../../app/config';
-import jwt, { JwtPayload } from 'jsonwebtoken'
+
 
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { Student } from '../student.model';
@@ -173,9 +173,9 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   }
 };
 
-const getMe = async(token:string) =>{
-  const decoded = jwt.verify(token,config.jwt_access_secret as string) as JwtPayload
-  const {userId , role} = decoded;
+const getMe = async(userId:string,role:string) =>{
+  // const decoded = jwt.verify(token,config.jwt_access_secret as string) as JwtPayload
+  // const {userId , role} = decoded;
   // console.log(userId,role)
   let result = null
   if(role === 'student'){
@@ -187,9 +187,15 @@ const getMe = async(token:string) =>{
   if(role === 'faculty'){
     result = await Faculty.findOne({id:userId})
   }
-  
   return result
-  
+}
+
+const changeStatus = async(id:string,payload:{status:string}) =>{
+
+  const result = await User.findByIdAndUpdate(id,payload,{
+    new:true
+  });
+  return result
 
 }
 
@@ -197,5 +203,6 @@ export const UserServices = {
   createStudentIntoDB,
   createFacultyIntoDB,
   createAdminIntoDB,
-  getMe
+  getMe,
+  changeStatus
 };
