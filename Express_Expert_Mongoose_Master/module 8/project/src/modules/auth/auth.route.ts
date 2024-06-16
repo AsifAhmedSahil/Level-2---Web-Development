@@ -14,6 +14,7 @@ router.post("/login",validationSchema(AuthValidation.LoginValidationSchema),auth
 router.post("/change-password",auth(USER_ROLE.admin,USER_ROLE.faculty,USER_ROLE.student),validationSchema(AuthValidation.changePasswordValidationSchema),authController.changePassword)
 router.post("/refresh-token",validationSchema(AuthValidation.refreshTokenValidation),authController.refreshToken)
 router.post("/forget-password",validationSchema(AuthValidation.forgetPasswordValidation),authController.forgetPassword)
+router.post("/reset-password",validationSchema(AuthValidation.resetPasswordValidation),authController.resetPassword)
 
 
 
