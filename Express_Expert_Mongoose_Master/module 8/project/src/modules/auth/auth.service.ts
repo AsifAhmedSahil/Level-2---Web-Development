@@ -9,6 +9,7 @@ import bcrypt from "bcrypt"
 import { createToken } from "./auth.utils";
 import jwt from "jsonwebtoken"
 import { sendEmail } from "../../utils/sendEmail";
+import { decode } from "punycode";
 
 
 
@@ -180,13 +181,13 @@ const forgetPassword = async(userId:string) =>{
 
     const resetUIdLink = `${config.ui_reset_pass_link}?id=${user.id}&token=${resetToken}`
 
-    // console.log(resetUIdLink)
+    console.log(resetUIdLink)
 
     sendEmail(user.email,resetUIdLink)
 
 }
 
-const resetPassword = async(payload:{id:string,newPassword:string},token) =>{
+const resetPassword = async(payload:{id:string,newPassword:string},token:string) =>{
 
     // check user is exist in database or not
 
@@ -207,6 +208,29 @@ const resetPassword = async(payload:{id:string,newPassword:string},token) =>{
     if(userStatus === 'blocked'){
         throw new AppError(httpStatus.FORBIDDEN,"This user is already blocked!")
     }
+
+    // verify is token is valid or not
+    const decoded = jwt.verify(token,config.jwt_access_secret as string) as JwtPayload 
+    console.log(decoded)
+
+    if(payload.id !== decoded.userId){
+        throw new AppError(httpStatus.FORBIDDEN,"You are forbiden")
+    }
+
+    // hash new password
+    const hashedNewPassword = await bcrypt.hash(payload.newPassword,Number(config.bcrypt_salt_rounds))
+
+    await User.findOneAndUpdate(
+        {
+            id:decoded.userId,
+            role:decoded.role
+        },
+        {
+            password: hashedNewPassword,
+            needPasswordChange:false,
+            passwordChangeAt : new Date()
+        }
+    )
 
 }
 
