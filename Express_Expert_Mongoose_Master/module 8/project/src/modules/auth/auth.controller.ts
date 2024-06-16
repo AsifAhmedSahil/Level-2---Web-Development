@@ -5,7 +5,7 @@ import { authServices } from "./auth.service";
 
 const loginUser = catchAsync(async(req,res) =>{
     const result = await authServices.loginUser(req.body)
-    const {refreshToken,accessToken,needPasswordChange} = result
+    const {refreshToken,accessToken} = result
 
     res.cookie('refreshToken',refreshToken,{
         secure: config.node_env === 'production',
@@ -17,7 +17,7 @@ const loginUser = catchAsync(async(req,res) =>{
         message:"login user successfully",
         data:{
             accessToken,
-            needPasswordChange
+            
         }
     })
 
