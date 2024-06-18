@@ -7,7 +7,7 @@ const createStudent = catchAsync(async (req, res) => {
   // using zod validation
   
 
-  const result = await UserServices.createStudentIntoDB(password, studentData);
+  const result = await UserServices.createStudentIntoDB(req.file , password, studentData);
 
   res.status(200).json({
     success: true,

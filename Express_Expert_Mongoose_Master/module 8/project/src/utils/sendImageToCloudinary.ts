@@ -2,7 +2,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import config from '../app/config';
 import multer from 'multer';
 
-export const sendImageToCloudinary = async() =>{
+export const sendImageToCloudinary = async(imageName:string , path:string) =>{
     cloudinary.config({ 
         cloud_name: config.cloudinary_name, 
         api_key: config.cloudinary_api_key, 
@@ -10,8 +10,8 @@ export const sendImageToCloudinary = async() =>{
     });
 
 
-    cloudinary.uploader.upload("https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg", {
-        public_id: "shoes"
+    cloudinary.uploader.upload(path, {
+        public_id: imageName
     }).catch((error)=>{console.log(error)});
 
 }

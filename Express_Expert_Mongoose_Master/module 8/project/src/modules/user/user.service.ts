@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import config from '../../app/config';
 
@@ -20,8 +21,9 @@ import { AcademicDepartment } from '../academicDepartment/academicDepartment.mod
 import { Faculty } from '../faculty/faculty.model';
 import { TAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
+import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
 
-const createStudentIntoDB = async (password: string, payload: TStudent) => {
+const createStudentIntoDB = async (file:any,password: string, payload: TStudent) => {
   // const student = new User(studentData)
   // if(await student.isUserExist(studentData.id)){
   //     throw new Error("user already exists!")
@@ -46,6 +48,12 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   try {
     session.startTransaction();
     userData.id = await generateStudentId(admissionSemester);
+    
+    // image name generate
+    const imageName = `${userData.id}${payload.name.firstName}`
+    const path = file?.path
+    // send image to cloudinary
+    sendImageToCloudinary(imageName,path)
 
     // create a user (transaction - 1)
     const newUser = await User.create([userData], { session });
