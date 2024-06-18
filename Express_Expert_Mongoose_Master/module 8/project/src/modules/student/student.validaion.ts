@@ -27,7 +27,7 @@ const localGuirdianValidationSchema = z.object({
 // Define Zod validation schema for Student
  const createStudentValidationSchema = z.object({
     body: z.object({
-        password:z.string().max(20),
+        password:z.string().max(20).optional(),
         student: z.object({
             name: userNameValidationSchema,
         gender: z.enum(['male', 'female', 'others']),
@@ -41,7 +41,7 @@ const localGuirdianValidationSchema = z.object({
         guirdian: guirdianValidationSchema,
         localGuirdian: localGuirdianValidationSchema,
         academicSemester: z.string(),
-        photoUrl: z.string().optional(),
+        // photoUrl: z.string().optional(),
         })
         
     
