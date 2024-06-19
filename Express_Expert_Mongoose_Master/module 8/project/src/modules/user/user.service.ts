@@ -19,7 +19,7 @@ import { AcademicDepartment } from '../academicDepartment/academicDepartment.mod
 import { Faculty } from '../faculty/faculty.model';
 import { TAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
-import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
+// import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
 
 const createStudentIntoDB = async (file:any,password: string, payload: TStudent) => {
   // const student = new User(studentData)
@@ -52,11 +52,11 @@ const createStudentIntoDB = async (file:any,password: string, payload: TStudent)
     userData.id = await generateStudentId(admissionSemester);
     
     // image name generate
-    const imageName = `${userData.id}${payload.name.firstName}`
-    const path = file?.path
-    console.log("imagename",imageName , "path",path)
-    // send image to cloudinary
-    sendImageToCloudinary(imageName,path)
+    // const imageName = `${userData.id}${payload.name.firstName}`
+    // const path = file?.path
+    // console.log("imagename",imageName , "path",path)
+    // // send image to cloudinary
+    // sendImageToCloudinary(imageName,path)
 
     // create a user (transaction - 1)
     const newUser = await User.create([userData], { session });
@@ -78,10 +78,11 @@ const createStudentIntoDB = async (file:any,password: string, payload: TStudent)
 
     return newStudent;
   } catch (error) {
+    console.log(error,"error********")
     await session.abortTransaction();
     await session.endSession();
     throw new Error('Failed to create user!');
-    console.log(error)
+    
   }
 };
 

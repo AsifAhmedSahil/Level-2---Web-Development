@@ -4,6 +4,7 @@ import catchAsync from '../../utils/catchAsync';
 
 const createStudent = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
+  console.log(req.file , studentData)
   
   // using zod validation
   

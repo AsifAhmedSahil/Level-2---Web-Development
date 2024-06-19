@@ -1,4 +1,7 @@
-const createEnrolledCourseIntoDB = async() =>{
+import { TEnrolledCourses } from "./enrolledCourse.interface"
+
+const createEnrolledCourseIntoDB = async(userId:string,payload:TEnrolledCourses) =>{
+
 
 }
 
