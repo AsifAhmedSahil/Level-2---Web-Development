@@ -1,31 +1,46 @@
-import {v2 as cloudinary} from 'cloudinary';
-import config from '../app/config';
+import { v2 as cloudinary } from 'cloudinary';
+import fs from 'fs';
 import multer from 'multer';
-
-// console.log(config.cloudinary_name,config.cloudinary_api_key,config.cloudinary_api_key_secret)
-export const sendImageToCloudinary = async(imageName:string , path:string) =>{
-    cloudinary.config({ 
-        cloud_name: config.cloudinary_name, 
-        api_key: config.cloudinary_api_key, 
-        api_secret: config.cloudinary_api_key_secret // Click 'View Credentials' below to copy your API secret
-    });
+import config from '../app/config';
 
 
-    cloudinary.uploader.upload(path, {
-        public_id: imageName
-    }).catch((error)=>{console.log(error)});
+cloudinary.config({
+  cloud_name: config.cloudinary_name,
+  api_key: config.cloudinary_api_key,
+  api_secret: config.cloudinary_api_key_secret,
+});
 
-}
-
+export const sendImageToCloudinary = (imageName: string, path: string) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(
+      path,
+      { public_id: imageName },
+      function (error, result) {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+        // delete a file asynchronously
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('File is deleted.');
+          }
+        });
+      },
+    );
+  });
+};
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, process.cwd() + '/uploads/')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
-  })
-  
-  export const upload = multer({ storage: storage })
+  destination: function (req, file, cb) {
+    cb(null, process.cwd() + '/uploads/');
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + '-' + uniqueSuffix);
+  },
+});
+
+export const upload = multer({ storage: storage });

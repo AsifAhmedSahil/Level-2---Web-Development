@@ -3,18 +3,17 @@ import catchAsync from '../../utils/catchAsync';
 
 
 const createStudent = catchAsync(async (req, res) => {
-  // const { password, student: studentData } = req.body;
-  console.log(req.file)
-  console.log(JSON.parse(req.body.data))
+  const { password, student: studentData } = req.body;
+  
   // using zod validation
   
 
-  // const result = await UserServices.createStudentIntoDB(req.file , password, studentData);
+  const result = await UserServices.createStudentIntoDB(req.file , password, studentData);
 
   res.status(200).json({
     success: true,
     message: 'Student Create Successfully',
-    // data: result,
+    data: result,
   });
 });
 

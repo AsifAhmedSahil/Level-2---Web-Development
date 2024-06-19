@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import config from '../../app/config';
-
-
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { Student } from '../student.model';
 import { TStudent } from '../student/student.interface';
@@ -41,6 +39,10 @@ const createStudentIntoDB = async (file:any,password: string, payload: TStudent)
   const admissionSemester = await AcademicSemester.findById(
     payload.academicSemester,
   );
+
+  if(!admissionSemester){
+    throw new AppError(401,"admission semester not found")
+  }
   console.log(admissionSemester, 'admission semester');
 
   const session = await mongoose.startSession();
@@ -52,6 +54,7 @@ const createStudentIntoDB = async (file:any,password: string, payload: TStudent)
     // image name generate
     const imageName = `${userData.id}${payload.name.firstName}`
     const path = file?.path
+    console.log("imagename",imageName , "path",path)
     // send image to cloudinary
     sendImageToCloudinary(imageName,path)
 
@@ -78,6 +81,7 @@ const createStudentIntoDB = async (file:any,password: string, payload: TStudent)
     await session.abortTransaction();
     await session.endSession();
     throw new Error('Failed to create user!');
+    console.log(error)
   }
 };
 
