@@ -2,6 +2,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import config from '../app/config';
 import multer from 'multer';
 
+// console.log(config.cloudinary_name,config.cloudinary_api_key,config.cloudinary_api_key_secret)
 export const sendImageToCloudinary = async(imageName:string , path:string) =>{
     cloudinary.config({ 
         cloud_name: config.cloudinary_name, 
