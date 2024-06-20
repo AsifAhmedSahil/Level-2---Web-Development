@@ -182,6 +182,13 @@ const updateEnrolledCourse = async (
     ...courseMarks,
   };
 
+  if(courseMarks?.finalTerm){
+    const {classTest1,midTerm,classTest2,finalTerm} = isCourseBelongsToFaculty.courseMarks
+
+    const totalMarks = Math.ceil(classTest1*0.10) + Math.ceil(midTerm*0.30) + Math.ceil(classTest2*0.10) + Math.ceil(finalTerm*0.50) 
+    console.log(totalMarks)
+  }
+
   if (courseMarks && Object.keys(courseMarks).length) {
     for (const [key, value] of Object.entries(courseMarks)) {
       modifiedData[`courseMarks.${key}`] = value;
