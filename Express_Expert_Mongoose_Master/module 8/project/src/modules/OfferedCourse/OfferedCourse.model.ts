@@ -31,11 +31,11 @@ TOfferedCourse>({
         ref:"courseFaculty",
         required:true
     },
-    // faculty:{
-    //     type: Schema.Types.ObjectId,
-    //     ref:"Faculty",
-    //     required:true
-    // },
+    faculty:{
+        type: Schema.Types.ObjectId,
+        ref:"Faculty",
+        required:true
+    },
     maxCapacity:{
         type: Number,
         required:true
