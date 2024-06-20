@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 import { semesterRegistrationModel } from '../semesterRegistration/semesterRegistration.model';
 import { Course } from '../courses/courses.model';
 import { Faculty } from '../faculty/faculty.model';
+import { calculateGradeAndGradePoint } from './enrolledCourse.utils';
 
 const createEnrolledCourseIntoDB = async (
   userId: string,
@@ -186,7 +187,12 @@ const updateEnrolledCourse = async (
     const {classTest1,midTerm,classTest2,finalTerm} = isCourseBelongsToFaculty.courseMarks
 
     const totalMarks = Math.ceil(classTest1*0.10) + Math.ceil(midTerm*0.30) + Math.ceil(classTest2*0.10) + Math.ceil(finalTerm*0.50) 
-    console.log(totalMarks)
+    const result = calculateGradeAndGradePoint(totalMarks)
+    console.log(result,totalMarks)
+
+    modifiedData.grade = result.grade;
+    modifiedData.gradePoints = result.gradepoints;
+    modifiedData.isCompleted = true;
   }
 
   if (courseMarks && Object.keys(courseMarks).length) {
