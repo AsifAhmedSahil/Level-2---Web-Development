@@ -6,6 +6,7 @@ import { OfferedCourse } from "./OfferedCourse.model";
 import { AcademicFaculty } from "../academicFaculty/academicFaculty.model";
 import { AcademicDepartment } from "../academicDepartment/academicDepartment.model";
 import { courseFaculty } from "../courses/courses.model";
+import { Student } from "../student.model";
 
 
 
@@ -78,8 +79,37 @@ const createOfferedCourseIntoDB = async(payload:TOfferedCourse) =>{
     return result
 
 }
+const getOfferedCourse = async() =>{
+    const result = await OfferedCourse.find()
+    return result
+
+}
+
+const getSingleOfferedCourse = async(id:string) =>{
+    const result = await OfferedCourse.findById(id)
+    return result
+
+}
+const getMyOfferedCourse = async(userId:string) =>{
+
+    // find student
+    const student = await Student.findOne({id:userId})
+    if(!student){
+        throw new AppError(httpStatus.NOT_FOUND,"student not found!")
+    }
+
+    // find the current semester
+    const currentSemester = await semesterRegistrationModel.findOne({status: 'ONGOING'})
+
+    // const result = await OfferedCourse.findById(id)
+    return currentSemester
+
+}
 
 
 export const offeredCourseServices = {
-    createOfferedCourseIntoDB
+    createOfferedCourseIntoDB,
+    getOfferedCourse,
+    getSingleOfferedCourse,
+    getMyOfferedCourse
 }

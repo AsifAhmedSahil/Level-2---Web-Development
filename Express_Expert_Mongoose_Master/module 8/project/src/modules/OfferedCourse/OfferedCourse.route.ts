@@ -14,8 +14,13 @@ const router = express.Router();
 
 
 router.post("/create-offered-course",auth(USER_ROLE.superAdmin,USER_ROLE.admin,USER_ROLE.faculty),validationSchema(offeredCourseValidation.createOfferedCourseValidationSchema),offeredCourseControllers.createOfferedCourse)
-// router.get("/",courseControllers.getAllCourseController)
-// router.get("/:courseId",courseControllers.getSingleCourseController)
+
+router.get("/",auth(USER_ROLE.superAdmin,USER_ROLE.admin,USER_ROLE.faculty),offeredCourseControllers.getAllOfferedCourse)
+
+router.get("/my-offered-courses",auth(USER_ROLE.student),offeredCourseControllers.getMyOfferedCourse)
+
+router.get("/:courseId",auth(USER_ROLE.superAdmin,USER_ROLE.admin,USER_ROLE.faculty,USER_ROLE.student),offeredCourseControllers.getSingleOfferedCourse)
+
 // // router.patch("/:semesterId",validationSchema(AcademicSemesterValidationSchemas.updateAcademicSemesterValidationSchema),AcademicSemesterControllers.updateSingleAcademicSemester)
 // router.delete("/:courseId",courseControllers.deleteCourseController)
 // router.put("/:courseId/assign-faculty",validationSchema(courseValidation.assignFacultyValidation),courseControllers.assignFaculty)
