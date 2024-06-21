@@ -71,6 +71,20 @@ const assignFaculty = catchAsync(async(req,res) =>{
     })
 })
 
+
+const getFacultyFromDB = catchAsync(async(req,res) =>{
+    const {courseId} = req.params
+    
+    const result = await CourseServices.getFacultyFromDB(courseId)
+
+
+    res.status(200).send({
+        success:true,
+        message: "faculty retrived Successfully",
+        data:result
+    })
+})
+
 // TODO:update course baki****
 
 
@@ -80,6 +94,7 @@ export const courseControllers = {
     getAllCourseController,
     deleteCourseController,
     updateCourseController,
-    assignFaculty
+    assignFaculty,
+    getFacultyFromDB
 
 }
