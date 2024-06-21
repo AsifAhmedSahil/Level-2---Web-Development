@@ -121,6 +121,9 @@ const getMyOfferedCourse = async(userId:string) =>{
                 foreignField: '_id',
                 as: 'course'
             }
+        },
+        {
+            $unwind: "$course"
         }
     ])
     // console.log(result)
