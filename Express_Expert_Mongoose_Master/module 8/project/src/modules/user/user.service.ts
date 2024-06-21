@@ -149,7 +149,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
-    console.log(error)
+    
     throw new Error('Error');
   }
 };
@@ -192,6 +192,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
+    console.log(error)
     throw new Error('error');
   }
 };
