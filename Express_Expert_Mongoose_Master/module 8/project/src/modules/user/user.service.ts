@@ -113,6 +113,8 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Academic Department Not Found!');
   }
 
+  payload.academicFaculty = academicDepartment.academicFaculty
+
   const session = await mongoose.startSession();
 
   try {
@@ -147,6 +149,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
+    console.log(error)
     throw new Error('Error');
   }
 };

@@ -20,13 +20,13 @@ const router = express.Router();
 // will call controller function
 router.post(
   '/create-faculty',
-  // auth(USER_ROLE.admin),
+  auth(USER_ROLE.superAdmin,USER_ROLE.admin),
   validationSchema(FacultyValidations.createFacultyValidationSchema),
   userControllers.createFaculty,
 );
 router.post(
   '/create-student',
-  auth(USER_ROLE.superAdmin),
+  auth(USER_ROLE.superAdmin,USER_ROLE.admin),
   // upload.single('file'),
   // (req:Request,res:Response,next:NextFunction) =>{
   //   req.body = JSON.parse(req.body.data)
@@ -37,12 +37,13 @@ router.post(
 );
 router.post(
   '/create-admin',
+  auth(USER_ROLE.superAdmin),
   validationSchema(AdminValidations.createAdminValidationSchema),
   userControllers.createAdmin,
 );
 router.post(
   '/change-status/:id',
-  auth('admin'),
+  auth(USER_ROLE.superAdmin,USER_ROLE.admin),
   validationSchema(userValidation.changeStatusValidation),
   userControllers.changeStatus,
 );

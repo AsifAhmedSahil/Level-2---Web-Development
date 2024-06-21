@@ -10,7 +10,7 @@ import { USER_ROLE } from '../user/user.constants';
 
 const router = express.Router();
 
-router.get('/',auth(USER_ROLE.admin,USER_ROLE.faculty), facultyControlers.getAllFaculty);
+router.get('/',auth(USER_ROLE.admin,USER_ROLE.faculty,USER_ROLE.superAdmin), facultyControlers.getAllFaculty);
 
 router.get('/:id', facultyControlers.getSingleFaculty);
 
