@@ -45,6 +45,13 @@ const createStudentIntoDB = async (file:any,password: string, payload: TStudent)
   }
   console.log(admissionSemester, 'admission semester');
 
+  const academicDepartment = await AcademicDepartment.findById(payload.academicDepartment)
+  if(!academicDepartment){
+    throw new AppError(401,"admission department not found")
+  }
+
+  payload.academicFaculty = academicDepartment.academicFaculty
+
   const session = await mongoose.startSession();
 
   try {

@@ -26,7 +26,7 @@ router.post(
 );
 router.post(
   '/create-student',
-  auth(USER_ROLE.admin),
+  auth(USER_ROLE.superAdmin),
   // upload.single('file'),
   // (req:Request,res:Response,next:NextFunction) =>{
   //   req.body = JSON.parse(req.body.data)

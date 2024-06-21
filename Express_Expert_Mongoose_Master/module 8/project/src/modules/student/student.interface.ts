@@ -46,6 +46,7 @@ export type TStudent = {
   photoUrl?: string,
   academicSemester : Types.ObjectId,
   academicDepartment : Types.ObjectId,
+  academicFaculty:Types.ObjectId,
   isDeleted: boolean
 
 };
