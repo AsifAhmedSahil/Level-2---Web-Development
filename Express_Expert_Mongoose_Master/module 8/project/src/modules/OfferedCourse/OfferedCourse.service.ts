@@ -124,6 +124,7 @@ const getMyOfferedCourse = async(userId:string) =>{
         },
         {
             $unwind: "$course"
+            look
         }
     ])
     // console.log(result)
