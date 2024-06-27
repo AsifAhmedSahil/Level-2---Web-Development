@@ -1,4 +1,5 @@
-import { Button } from "./components/ui/button"
+
+import Todo from "./pages/Todo"
 
 
 function App() {
@@ -6,8 +7,7 @@ function App() {
 
   return (
     <>
-      <h1>my todo</h1>
-      <Button>my button</Button>
+      <Todo/>
     </>
   )
 }
