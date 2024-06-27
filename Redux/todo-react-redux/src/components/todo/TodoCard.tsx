@@ -6,7 +6,7 @@ const TodoCard = () => {
     <div className="bg-white rounded-md flex justify-between p-3 items-center">
       <input type="checkbox" name="" id="" />
       <p className="font-semibold">Todo Title</p>
-      <p>Time</p>
+      {/* <p>Time</p> */}
       <p>Description</p>
       <div className="space-x-5">
         <Button className="bg-red-500">
