@@ -1,13 +1,18 @@
 import React from "react";
 import { Button } from "../ui/button";
 
-const TodoCard = () => {
+type TTodoPropsType = {
+  title:string,
+  description:string
+}
+
+const TodoCard = ({title,description}: TTodoPropsType) => {
   return (
     <div className="bg-white rounded-md flex justify-between p-3 items-center">
       <input type="checkbox" name="" id="" />
-      <p className="font-semibold">Todo Title</p>
+      <p className="font-semibold">{title}</p>
       {/* <p>Time</p> */}
-      <p>Description</p>
+      <p>{description}</p>
       <div className="space-x-5">
         <Button className="bg-red-500">
           <svg
