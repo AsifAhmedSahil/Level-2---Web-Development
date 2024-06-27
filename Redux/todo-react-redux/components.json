@@ -8,10 +8,10 @@
     "css": "src/index.css",
     "baseColor": "slate",
     "cssVariables": true,
-    "prefix": " "
+    "prefix": ""
   },
   "aliases": {
-    "components": "  ",
+    "components": "@/components",
     "utils": "@/lib/utils"
   }
 }

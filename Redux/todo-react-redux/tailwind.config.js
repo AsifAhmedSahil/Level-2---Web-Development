@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -8,7 +7,7 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  prefix: " ",
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -18,15 +17,6 @@ module.exports = {
       },
     },
     extend: {
-      borderWidth: {
-        '1': '1px',
-      },
-      backgroundColor: {
-        'background': 'your-background-color-here',
-      },
-      textColor: {
-        'foreground': 'your-text-color-here',
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
