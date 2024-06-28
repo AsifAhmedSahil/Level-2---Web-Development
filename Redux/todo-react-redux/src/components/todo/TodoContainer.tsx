@@ -16,7 +16,7 @@ const TodoContainer = () => {
         <div className='bg-primary-gradient w-full h-full rounded-xl p-5 space-y-4'>
             {/* <div className='text-2xl font-bold flex justify-center items-center p-3 bg-white rounded-md'><p>There is no task pending</p></div> */}
             {
-              todos.map((items) => <TodoCard title={items.title} description={items.description}/>)
+              todos.map((items) => <TodoCard {...items}/>)
             }
 
         </div>
