@@ -7,6 +7,8 @@ import { Label } from "../ui/label";
 // import { useAppDispatch } from "@/redux/hook";
 // import { addTodo } from "@/redux/features/todoSlice";
 import { useAddTodoMutation } from "@/redux/api/api";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+
 
 
 
@@ -14,6 +16,8 @@ const AddTodoModal = () => {
 
   const [task,setTask] = useState('')
   const [description,setDescription] = useState('')
+  const [priority,setPriority] = useState('')
+  
   // ! For Local data
   // const disPatch = useAppDispatch()
   //* For Server
@@ -29,13 +33,15 @@ const AddTodoModal = () => {
     const taskDetails = {
       // id:randomString,
       title:task,
-      description:description,
-      // priority:priority
+      description,
+      isCompleted:false, 
+      priority
     }
     // !For Local Data
     // disPatch(addTodo(taskDetails))
 
     //* For Server
+    console.log("inside app modal => ",taskDetails)
     addTodo(taskDetails)
   }
 
@@ -74,6 +80,25 @@ const AddTodoModal = () => {
               onBlur={(e) => setDescription(e.target.value)}
               className="col-span-3"
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label  className="text-right">
+              Priority
+            </Label>
+            <Select onValueChange={(value) => setPriority(value)}>
+      <SelectTrigger className="col-span-3">
+        <SelectValue placeholder="Select Priority" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Priority</SelectLabel>
+          <SelectItem value="high">High</SelectItem>
+          <SelectItem value="medium">Medium</SelectItem>
+          <SelectItem value="low">Low</SelectItem>
+          
+        </SelectGroup>
+      </SelectContent>
+    </Select>
           </div>
         </div>
         <div className="flex justify-end">
