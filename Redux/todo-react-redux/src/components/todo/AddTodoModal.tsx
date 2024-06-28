@@ -4,8 +4,9 @@ import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription,  DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useAppDispatch } from "@/redux/hook";
-import { addTodo } from "@/redux/features/todoSlice";
+// import { useAppDispatch } from "@/redux/hook";
+// import { addTodo } from "@/redux/features/todoSlice";
+import { useAddTodoMutation } from "@/redux/api/api";
 
 
 
@@ -13,20 +14,29 @@ const AddTodoModal = () => {
 
   const [task,setTask] = useState('')
   const [description,setDescription] = useState('')
-  const disPatch = useAppDispatch()
+  // ! For Local data
+  // const disPatch = useAppDispatch()
+  //* For Server
+  const [addTodo,{isLoading,isError,isSuccess,data}] = useAddTodoMutation()
+  console.log(isLoading,isError,isSuccess,data)
   
 
 
   const onSubmit = (e : FormEvent) =>{
     e.preventDefault()
     // console.log(task,description)
-    const randomString = Math.random().toString(36).substring(2,7)
+    // const randomString = Math.random().toString(36).substring(2,7)
     const taskDetails = {
-      id:randomString,
+      // id:randomString,
       title:task,
-      description:description
+      description:description,
+      // priority:priority
     }
-    disPatch(addTodo(taskDetails))
+    // !For Local Data
+    // disPatch(addTodo(taskDetails))
+
+    //* For Server
+    addTodo(taskDetails)
   }
 
   return (
