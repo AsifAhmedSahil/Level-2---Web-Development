@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { Button } from '../ui/button'
 
-const TodoFilter = () => {
-    const [position, setPosition] =useState("bottom")
+const TodoFilter = ({priority,setPriority}) => {
+    
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -13,10 +13,10 @@ const TodoFilter = () => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Filter By Priority</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="high">high</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="medium">medium</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="Low">Low</DropdownMenuRadioItem>
+        <DropdownMenuRadioGroup value={priority} onValueChange={setPriority}>
+          <DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="medium">Medium</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="low">Low</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
