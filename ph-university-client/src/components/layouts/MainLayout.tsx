@@ -1,15 +1,23 @@
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, MenuProps } from 'antd'
 const { Header, Sider, Content,Footer } = Layout;
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import React, { createElement } from 'react'
 
-const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-    (icon, index) => ({
-      key: String(index + 1),
-      icon: createElement(icon),
-      label: `nav ${index + 1}`,
-    }),
-  ); 
+
+
+const items :MenuProps["items"] = [
+  {
+    key: "1",
+    label: "Dashboard"
+  },
+  {
+    key: "2",
+    label: "Profile"
+  },
+  {
+    key: "3",
+    label: "User Management"
+  },
+]
+   
 
 const MainLayout = () => {
   return (
@@ -24,7 +32,7 @@ const MainLayout = () => {
           console.log(collapsed, type);
         }}
       >
-        <div className="demo-logo-vertical" />
+        <div style={{color: 'white', textAlign: 'center', height: '4rem', display: 'flex', justifyContent: 'center', alignItems:'center'}}>PH Uni</div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
       </Sider>
       <Layout>
