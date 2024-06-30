@@ -1,12 +1,15 @@
+import { Provider } from "react-redux"
+import store from "./redux/store"
+import Todo from "./components/todo"
 
 
 function App() {
 
 
   return (
-    <>
-      <h1 className="bg-red-500">hello</h1>
-    </>
+    <Provider store={store}>
+      <Todo/>
+    </Provider>
   )
 }
 
