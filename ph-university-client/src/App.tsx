@@ -1,13 +1,8 @@
+import MainLayout from "./components/layouts/MainLayout";
 
 
 function App() {
-  
-
-  return (
-    <>
-      <h1>ph uni management</h1>
-    </>
-  )
+  return <MainLayout />;
 }
 
-export default App
+export default App;
