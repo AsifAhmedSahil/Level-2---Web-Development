@@ -1,5 +1,6 @@
 import { Layout, Menu, MenuProps } from 'antd'
 import { NavLink, Outlet } from 'react-router-dom';
+import { adminSidebarItemsRoutes } from '../../routes/admin.routes';
 const { Header, Sider, Content,Footer } = Layout;
 
 
@@ -45,7 +46,7 @@ const MainLayout = () => {
         }}
       >
         <div style={{color: 'white', textAlign: 'center', height: '4rem', display: 'flex', justifyContent: 'center', alignItems:'center'}}>PH Uni</div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={adminSidebarItemsRoutes} />
       </Sider>
       <Layout>
         <Header style={{ padding: 0}} />
