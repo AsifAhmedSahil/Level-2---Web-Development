@@ -6,7 +6,7 @@ const { Header, Sider, Content, Footer } = Layout;
 const MainLayout = () => {
   return (
     <Layout>
-      <Sider
+      {/* <Sider
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
@@ -17,7 +17,7 @@ const MainLayout = () => {
         }}
       >
         <div
-          style={{
+          style={{ */}
             color: "white",
             textAlign: "center",
             height: "4rem",
