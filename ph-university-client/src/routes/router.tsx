@@ -4,7 +4,8 @@ import App from "../App";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
-import {  adminRoutes } from "./admin.routes";
+import { routeGenerator } from "../utils/routeGenerator";
+import { adminPaths } from "./admin.routes";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <App />,
-    children: adminRoutes,
+    children: routeGenerator(adminPaths),
   },
   {
     path: "/login",
