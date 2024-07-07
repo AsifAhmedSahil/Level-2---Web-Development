@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import { FaCheck, FaTimes, FaToggleOn, FaTrash } from "react-icons/fa";
 import { FaToggleOff } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { markCompleted, markInCompleted, removeTodo, toggleTodo } from "../redux/action";
 
 const TodoItems = ({ todo, index }) => {
-  console.log(todo, "todos*******");
+  
   const dispatch = useDispatch();
+  
   return (
     <li className="flex flex-col sm:flex-row sm:items-center justify-between py-2 gap-4  border-b-2">
+      
       <div className="flex items-center">
         <span className="mr-4 text-gray-400">{index + 1}</span>
         <span

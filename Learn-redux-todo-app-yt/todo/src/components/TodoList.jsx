@@ -7,10 +7,13 @@ const TodoList = () => {
         const todos = state.todos;
         const filter = state.filter;
         const searchTerm = state.searchTerm
-        // console.log(todos)
+        console.log(filter)
 
         return todos.filter((todo) =>{
-            const matchedFilter = (filter === 'COMPLETED' && todo.completed) || (filter === 'INCOMPLETED' && !todo.completed) || (filter === 'ALL')
+            console.log(todo.completed,"todo completed***********")
+
+            const matchedFilter = (filter === 'COMPLETED' && todo.completed === 'true') || (filter === 'INCOMPLETED' && !todo.completed) || (filter === 'ALL')
+            console.log(matchedFilter)
 
             const matchedSearch = todo.text.toLowerCase().includes(searchTerm)
 
@@ -18,7 +21,7 @@ const TodoList = () => {
         })
 
     })
-    console.log(filteredTodos)
+    console.log(filteredTodos) 
   return (
     <ul>
         <li className="my-2 text-sm italic">All Your Notes Here...</li>
