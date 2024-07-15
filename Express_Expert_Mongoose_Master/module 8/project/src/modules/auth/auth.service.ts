@@ -48,7 +48,7 @@ const loginUser = async(payload:TLoginUser) =>{
     }
 
     const accessToken = createToken(jwtPayload,config.jwt_access_secret as string,'10d')
-    const refreshToken = createToken(jwtPayload,config.jwt_refresh_secret as string,'365d')
+    const refreshToken = createToken(jwtPayload,config.jwt_refresh_secret as string,'365d')f
 
     
     return {accessToken,refreshToken,needsPasswordChange:user?.needPasswordChange}
