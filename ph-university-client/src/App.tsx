@@ -1,10 +1,7 @@
-import MainLayout from "./components/layouts/MainLayout";
-// import ProtectedRoute from "./components/layouts/ProtectedRoute";
-
+import MainLayout from './components/layout/MainLayout';
 
 function App() {
-  // return <ProtectedRoute><MainLayout /></ProtectedRoute> ;
-  return <MainLayout /> ;
+  return <MainLayout />;
 }
 
 export default App;

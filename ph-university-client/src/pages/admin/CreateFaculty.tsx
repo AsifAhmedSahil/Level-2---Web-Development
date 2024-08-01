@@ -1,9 +1,9 @@
-import React from 'react'
-
 const CreateFaculty = () => {
   return (
-    <div>CreateFaculty</div>
-  )
-}
+    <div>
+      <h1> This is CreateFaculty component </h1>
+    </div>
+  );
+};
 
-export default CreateFaculty
+export default CreateFaculty;
