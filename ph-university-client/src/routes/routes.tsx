@@ -7,6 +7,7 @@ import { adminPaths } from './admin.routes';
 import { facultyPaths } from './faculty.routes';
 
 
+
 const router = createBrowserRouter([
   {
     path: '/',

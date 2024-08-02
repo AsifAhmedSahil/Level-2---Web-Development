@@ -8,12 +8,13 @@ import { Navigate } from "react-router-dom"
 const ProtectedRoute = ({children}:{children:ReactNode}) => {
 
     const token = useAppSelector(useCurrentToken)
+    //console.log(token,"token frmproyesy***")
 
     if(!token){
-        return <Navigate to={"/login"} replace={true}/>
+        return <Navigate to="/login" replace={true}/>
     }
 
-  return {children}
+  return children
 }
 
 export default ProtectedRoute
