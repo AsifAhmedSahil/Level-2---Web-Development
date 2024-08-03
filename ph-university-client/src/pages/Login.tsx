@@ -8,6 +8,7 @@ import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
 
 
 
@@ -15,51 +16,52 @@ import PHForm from "../components/form/PHForm";
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const {register,handleSubmit} = useForm(
-    {
-      defaultValues:{
-        id: 'A-0001',
-        password:'admin123'
-      }
-    }
-  )
+  // const {register,handleSubmit} = useForm(
+  //   {
+  //     defaultValues:{
+  //       id: 'A-0001',
+  //       password:'admin123'
+  //     }
+  //   }
+  // )
 
   const [login] = useLoginMutation()
   
   
 
   const onSubmit = async (data : FieldValues) =>{
-    const toastId = toast.loading("login user...")
-    // console.log(data)
-    try {
-      const userInfo = {
-        id: data.id,
-        password:data.password
-      }
-      const res = await login(userInfo).unwrap()
-      const user = verifyToken(res.data.accessToken) as TUser
+    console.log(data)
+    // const toastId = toast.loading("login user...")
+    // try {
+    //   const userInfo = {
+    //     id: data.id,
+    //     password:data.password
+    //   }
+    //   const res = await login(userInfo).unwrap()
+    //   const user = verifyToken(res.data.accessToken) as TUser
      
-      console.log(user)
+    //   console.log(user)
       
-      dispatch(setUser({user:user , token:res.data.accessToken}))
-      toast.success("Logged In User Succesfully!",{id:toastId , duration:2000})
-      navigate(`/${user.role}/dashboard`)
-    } catch (error) {
-      toast.error("Something Went Wrong!",{id:toastId , duration:2000})
-    }
+    //   dispatch(setUser({user:user , token:res.data.accessToken}))
+    //   toast.success("Logged In User Succesfully!",{id:toastId , duration:2000})
+    //   navigate(`/${user.role}/dashboard`)
+    // } catch (error) {
+    //   toast.error("Something Went Wrong!",{id:toastId , duration:2000})
+    // }
 
 
   }
   return (
-    <PHForm onSubmit={handleSubmit(onSubmit)}>
+    <PHForm onSubmit={onSubmit}>
       <div>
-        <label htmlFor="id">ID</label>
-        <input type="text" id="" {...register('id')}/>
+        <label htmlFor="id">ID: </label>
+        <PHInput type="text" name="id"/>
 
       </div>
       <div>
-        <label htmlFor="id">Password</label>
-        <input type="text" id="password" {...register('password')}/>
+        <label htmlFor="id">Password: </label>
+        <PHInput type="text" name="password"/>
+        
 
       </div>
       <Button htmlType="submit">Log in</Button>
