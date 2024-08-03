@@ -57,11 +57,11 @@ const Login = () => {
       <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
         <div>
           <label htmlFor="id">ID: </label>
-          <PHInput type="text" name="id" />
+          <PHInput type="text" name="id" label="ID:" />
         </div>
         <div>
           <label htmlFor="id">Password: </label>
-          <PHInput type="text" name="password" />
+          <PHInput type="text" name="password" label="Password" />
         </div>
         <Button htmlType="submit">Log in</Button>
       </PHForm>
