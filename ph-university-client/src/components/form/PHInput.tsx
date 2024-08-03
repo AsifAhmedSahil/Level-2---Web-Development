@@ -1,8 +1,13 @@
 
 import { Input } from 'antd'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
-const PHInput = ({type,name}) => {
+type TInputProps = {
+    type:string,
+    name:string
+}
+
+const PHInput = ({type,name}:TInputProps) => {
     // const {register} = useFormContext()
   return (
     <div style={{marginBottom: '20px'}}>
