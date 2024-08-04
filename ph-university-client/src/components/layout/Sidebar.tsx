@@ -34,7 +34,7 @@ const Sidebar = () => {
 
 
   return (
-    <Sider
+    <Sider style={{height: "100vh" ,position:"sticky" ,top:"0",left:"0"}}
        
       >
         <div
