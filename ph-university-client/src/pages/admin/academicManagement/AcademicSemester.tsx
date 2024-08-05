@@ -9,7 +9,7 @@ const AcademicSemester = () => {
   const {data: semesterData} = useGetAllSemesterQuery(undefined)
   console.log(semesterData)
   const tableData = semesterData?.data?.map(({_id,name,endMonth,startMonth,year}) =>({
-    _id,name,endMonth,startMonth,year
+    key:_id,name,endMonth,startMonth,year
   }))
   const columns: TableColumnsType<TTableData> = [
     {
@@ -18,27 +18,18 @@ const AcademicSemester = () => {
       showSorterTooltip: { target: 'full-header' },
       filters: [
         {
-          text: 'Joe',
-          value: 'Joe',
+          text: 'Autumn',
+          value: 'Autumn',
         },
         {
-          text: 'Jim',
-          value: 'Jim',
+          text: 'Summer',
+          value: 'Summer',
         },
         {
-          text: 'Submenu',
-          value: 'Submenu',
-          children: [
-            {
-              text: 'Green',
-              value: 'Green',
-            },
-            {
-              text: 'Black',
-              value: 'Black',
-            },
-          ],
-        },
+          text: 'Fall',
+          value: 'Fall',
+        }
+        
       ],
       // specify the condition of filtering result
       // here is that finding the name started with `value`
