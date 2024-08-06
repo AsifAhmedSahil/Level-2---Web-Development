@@ -1,14 +1,15 @@
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemesterQuery } from "../../../redux/features/admin/academicManagementApi"
 import { TAcademicSemester } from "../../../types/academicManagement.types";
 import { useState } from "react";
+import { TQueryParams } from "../../../types/global";
 
-export type TTableData = Pick<TAcademicSemester,'_id'|'name'|'year'|'startMonth'|'endMonth'>
+export type TTableData = Pick<TAcademicSemester,'name'|'year'|'startMonth'|'endMonth'>
 
 
 const AcademicSemester = () => {
-   const [params, setParams] = useState([])
-  const {data: semesterData} = useGetAllSemesterQuery(params)
+   const [params, setParams] = useState<TQueryParams[] | undefined>(undefined)
+  const {data: semesterData ,isLoading,isFetching} = useGetAllSemesterQuery(params)
   console.log(semesterData)
   const tableData = semesterData?.data?.map(({_id,name,endMonth,startMonth,year}) =>({
     key:_id,name,endMonth,startMonth,year
@@ -67,14 +68,25 @@ const AcademicSemester = () => {
       title: 'End Month',
       dataIndex: 'endMonth',
     },
+    {
+      title: 'Action',
+      key: 'X',
+      render: () =>{
+        return (
+          <div>
+          <Button>Update</Button>
+        </div>
+        )
+      }
+    },
     
   ];
 
   
-  const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
+  const onChange: TableProps<TTableData>['onChange'] = (_pagination, filters, _sorter, extra) => {
     // console.log('params', pagination, filters, sorter, extra);
     if(extra.action === 'filter'){
-      const queryParams = [];
+      const queryParams : TQueryParams[] = [];
       filters.name?.forEach((item) =>(
         queryParams.push({name:'name',value:item})
       ))
@@ -85,9 +97,14 @@ const AcademicSemester = () => {
       setParams(queryParams)
     }
   };
+
+  if(isLoading){
+    return <p>Loading ... </p>;
+  }
   
   return (
     <Table
+    loading={isFetching}
     columns={columns}
     dataSource={tableData}
     onChange={onChange}
