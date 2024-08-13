@@ -4,22 +4,23 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 
 const OrderSummary = () => {
+  const {tax,taxRate,grandTotal,totalPrice,selestedItems} = useAppSelector((store) => store.cart)
  
   return (
     <div className=" lg:w-80 w-full h-full bg-primary bg-opacity-35 rounded">
       <div className="px-6 py-4 space-y-10">
         <h1 className="text-3xl font-bold text-dark">Order Summary</h1>
         <p className="text-sm text-dark mt-2">
-          {/* Selected Items : {selectedItems} */}
+          Selected Items : {selestedItems}
         </p>
         <p className="text-sm text-dark mt-2">
-          {/* Total Price : ${totalPrice.toFixed(2)} */}
+          Total Price : ${totalPrice.toFixed(2)}
         </p>
         <p className="text-sm text-dark mt-2">
-          {/* Tax ({taxRate * 100}): ${tax.toFixed(3)} */}
+          Tax ({taxRate * 100}): ${tax.toFixed(3)}
         </p>
         <h3 className="text-xl font-semibold text-dark mt-4">
-          {/* Grand Total ${grandTotal.toFixed(3)} */}
+          Grand Total ${grandTotal.toFixed(3)}
         </h3>
       </div>
       <div className="px-4 pb-6">

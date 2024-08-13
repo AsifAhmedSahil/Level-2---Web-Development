@@ -27,9 +27,19 @@ export const cartSlice = createSlice({
       if(!isExist){
         state.products.push({...action.payload,quantity:1})
       }
+
+      state.selestedItems = state.products.reduce((total: number,product:any) =>{
+        return Number(total + product.quantity)
+      },0)
+
+      state.totalPrice = state.products.reduce((total: number,product:any) =>{
+        return Number(total + product.quantity * product.price)
+      },0)
     }
   },
 })
+
+
 
 export const {addToCart} = cartSlice.actions
 
