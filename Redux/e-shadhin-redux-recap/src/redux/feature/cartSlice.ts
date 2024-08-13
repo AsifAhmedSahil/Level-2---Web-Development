@@ -81,10 +81,13 @@ export const cartSlice = createSlice({
       state.grandTotal = 0,
       state.tax = 0,
       state.selestedItems = 0
-    }
+    },
+    removeCartItem: (state, action) => {
+      state.products = state.products.filter((item:any) => item._id !== action.payload.id);
+    },
   },
 });
 
-export const { addToCart , updateQuantity,clearCart } = cartSlice.actions;
+export const { addToCart , updateQuantity,clearCart,removeCartItem } = cartSlice.actions;
 
 export default cartSlice.reducer;

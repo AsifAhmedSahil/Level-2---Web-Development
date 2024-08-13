@@ -3,7 +3,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import React from "react";
 
 import { useAppDispatch } from "../redux/hooks";
-import { updateQuantity } from "../redux/feature/cartSlice";
+import { removeCartItem, updateQuantity } from "../redux/feature/cartSlice";
 
 
 const CartDetails = ({ product }: any) => {
@@ -11,6 +11,11 @@ const dispatch = useAppDispatch()
   const handleQuantity =(type:string,id:string)=>{
     const payload = {type,id}
     dispatch(updateQuantity(payload))
+  }
+
+  const handleRemove = (id :string) =>{
+    dispatch(removeCartItem(id))
+    console.log("delete madarsod")
   }
   return (
     <div className="flex items-center justify-between space-x-4 border border-gray-300 rounded-lg p-4 bg-white shadow-md transition-transform transform hover:scale-105 hover:shadow-lg w-full max-w-md mx-auto">
@@ -39,7 +44,7 @@ const dispatch = useAppDispatch()
         </button>
       </div>
       <button
-        // onClick={(e) => handleRemove(e, product.id)}
+        onClick={(e) => handleRemove( product.id)}
         className="bg-red-600 text-white p-2 rounded-full hover:bg-red-700"
       >
         <Trash2 size={18} />
