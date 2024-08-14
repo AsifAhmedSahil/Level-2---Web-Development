@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-red-600 to-green-600 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
