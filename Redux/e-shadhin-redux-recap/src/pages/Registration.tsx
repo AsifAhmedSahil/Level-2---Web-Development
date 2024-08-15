@@ -3,14 +3,19 @@ import { Link } from 'react-router-dom'
 import { useAppSelector,useAppDispatch } from '../redux/hooks'
 import { RootState } from '../redux/store'
 import { setEmail, setName, setPassword, setRole } from '../redux/feature/registerSlice'
+import { useSignUpMutation } from '../redux/api/auth/authApi'
 
 const Registration = () => {
   const dispatch = useAppDispatch()
   const {name,email,password,role} = useAppSelector((state:RootState) => state.register)
 
-  const handleSubmit = (e) =>{
+  const [signUp] = useSignUpMutation()
+
+  const handleSubmit = async(e:React.FormEvent) =>{
     e.preventDefault()
     console.log("input",{name,email,password,role})
+    const user = await signUp({username:name,email,password,role})
+    console.log(user)
 
   }
   return (

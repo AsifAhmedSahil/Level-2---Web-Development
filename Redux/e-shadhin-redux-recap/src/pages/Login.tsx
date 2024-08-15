@@ -1,20 +1,36 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useAppSelector,useAppDispatch } from '../redux/hooks'
+import { RootState } from '../redux/store';
+import { useLoginMutation } from '../redux/api/auth/authApi';
+import { setName, setPassword } from '../redux/feature/loginSlice';
 
 const Login = () => {
+  const dispatch = useAppDispatch()
+  const {name,password} = useAppSelector((state:RootState) => state.login)
+  const [login , { data }] = useLoginMutation()
+
+  const handleLogin = async(e:React.FormEvent) =>{
+    e.preventDefault()
+    const user = await login({username:name,password})
+    console.log(user)
+
+  }
   
   return (
     <div className="min-h-screen bg-gradient-to-r from-red-600 to-green-600 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold text-center text-red-600 mb-6">Login</h2>
-        <form>
+        <form onSubmit={handleLogin} >
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">Email</label>
+            <label htmlFor="name" className="block text-gray-700">Name</label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e)=>dispatch(setName(e.target.value))}
               className="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-red-600"
-              placeholder="Enter your email"
+              placeholder="Enter your username"
             />
           </div>
           <div className="mb-6">
@@ -22,6 +38,8 @@ const Login = () => {
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={(e)=>dispatch(setPassword(e.target.value))}
               className="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-red-600"
               placeholder="Enter your password"
             />
