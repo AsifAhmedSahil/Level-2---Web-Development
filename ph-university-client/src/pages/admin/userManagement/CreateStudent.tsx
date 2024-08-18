@@ -5,6 +5,7 @@ import { Button, Col, Divider, Row } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 import { bloodGroupOptions, genderOptions } from "../../../constants/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
+import { useGetAllSemesterQuery } from "../../../redux/features/admin/academicManagementApi";
 
 const studentSummyData = {
   password: "student123",
@@ -83,9 +84,20 @@ const defaultstudentData ={
   isActive: "active",
 }
 const CreateStudent = () => {
+
+  const {data:sData  }= useGetAllSemesterQuery(undefined)
+  console.log(sData)
+
+  const semesterOptions = sData?.data?.map((item) =>({
+    value:item._id,
+    label:`${item.name} ${item.year}`
+  }))
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
+
+
 
   return (
     <Row>
@@ -166,6 +178,14 @@ const CreateStudent = () => {
             <Col span={24} md={{span:12}} lg={{span:8}}>
               <PHInput type="text" name="localGuirdian.contact" label="Contact" />
             </Col>
+          </Row>
+          {/* --------------------------------------------------------------------- */}
+          <Divider> Semester Info</Divider>
+          <Row gutter={8}>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHSelect options={semesterOptions}  name="academicSemester" label="Academic Semester" />
+            </Col>
+            
           </Row>
             <Button htmlType="submit">Submit</Button>
         </PHForm>
