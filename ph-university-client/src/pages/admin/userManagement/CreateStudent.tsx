@@ -5,7 +5,8 @@ import { Button, Col, Divider, Row } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 import { bloodGroupOptions, genderOptions } from "../../../constants/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
-import { useGetAllSemesterQuery } from "../../../redux/features/admin/academicManagementApi";
+import { useGetAcademicDepartmentQuery, useGetAllSemesterQuery } from "../../../redux/features/admin/academicManagementApi";
+import { useAddStudentMutation } from "../../../redux/features/admin/userManagementApi";
 
 const studentSummyData = {
   password: "student123",
@@ -57,7 +58,7 @@ const defaultstudentData ={
   
   bloodGroup: "A+",
 
-  email: "towsif.doe@example.com",
+  email: "student1@example.com",
   contact: "1234567890",
   emergenceContactNo: "0987654321",
   presentAddress: "123 Main St, City, Country",
@@ -79,24 +80,39 @@ const defaultstudentData ={
   },
 
   photoUrl: "https://example.com/john_doe_photo.jpg",
-  academicSemester: "6674f3db444d879394103420",
-  academicDepartment: "6674f2b4444d87939410341b",
+  // academicSemester: "6674f3db444d879394103420",
+  // academicDepartment: "6674f2b4444d87939410341b",
   isActive: "active",
 }
 const CreateStudent = () => {
 
-  const {data:sData  }= useGetAllSemesterQuery(undefined)
+  const {data:sData ,isLoading:sIsLoading }= useGetAllSemesterQuery(undefined)
   console.log(sData)
 
+  const {data:dData,isLoading:dIsLoading} = useGetAcademicDepartmentQuery(undefined )
+  console.log(dData)
+
+  const [addStudent , {data,error}] = useAddStudentMutation()
+  console.log(data,error)
+
+  
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+    const studentData = {
+      password:"student123",
+      student :data
+    }
+    addStudent(studentData)
+  };
+  
   const semesterOptions = sData?.data?.map((item) =>({
     value:item._id,
     label:`${item.name} ${item.year}`
   }))
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-  };
-
+  const departmentOptions = dData?.data?.map((item) =>({
+    value:item._id,
+    label:`${item.name} `
+  }))
 
 
   return (
@@ -183,7 +199,10 @@ const CreateStudent = () => {
           <Divider> Semester Info</Divider>
           <Row gutter={8}>
             <Col span={24} md={{span:12}} lg={{span:8}}>
-              <PHSelect options={semesterOptions}  name="academicSemester" label="Academic Semester" />
+              <PHSelect options={semesterOptions} disabled={sIsLoading}  name="academicSemester" label="Academic Semester" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHSelect options={departmentOptions} disabled={dIsLoading}  name="academicDepartment" label="Academic Department" />
             </Col>
             
           </Row>
