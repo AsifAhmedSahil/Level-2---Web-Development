@@ -1,4 +1,4 @@
-import { Button, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from "antd";
 
 import { useState } from "react";
 import { TQueryParams } from "../../../types/global";
@@ -11,7 +11,7 @@ export type TTableData = Pick<
 >;
 
 const StudentData = () => {
-  const [params, setParams] = useState<TQueryParams[] | undefined>(undefined);
+  const [params, setParams] = useState<TQueryParams[] | undefined>([]);
   const {
     data: studentData,
     isLoading,
@@ -75,13 +75,17 @@ const StudentData = () => {
   }
 
   return (
-    <Table
+    <>
+      <Table
       loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
+      pagination={false}
     />
+    <Pagination pageSize={2} total={studentData?.data?.length}/>
+    </>
   );
 };
 
