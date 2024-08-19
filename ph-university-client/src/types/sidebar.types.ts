@@ -16,4 +16,4 @@ export type TRoute = {
     key: string;
     label: ReactNode;
     children?: TSidebarItem[];
-  };
+  } | undefined;
