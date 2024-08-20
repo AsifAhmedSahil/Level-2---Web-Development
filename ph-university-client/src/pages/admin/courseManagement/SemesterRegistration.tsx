@@ -55,7 +55,7 @@ const SemesterRegistration = () => {
         try {
           
           console.log(semesterData);
-          const res = await addRegisteredSemester(semesterData) as TResponse<any>
+          const res = await addRegisteredSemester(semesterRegistrationData) as TResponse<any>
           if(res.error){
             toast.error(res.error?.data?.message ,{id:toastId})
           }else{
@@ -70,22 +70,29 @@ const SemesterRegistration = () => {
   
   
   return (
-    <Flex  justify="center" align="center" >
-      <Col  span={6}>
-        <PHForm  onSubmit={onSubmit} >
-          
-          <PHSelect label="Academic Semester" name="academicSemester" options={semesterOptions}/>
-          <PHSelect label="Status" name="status" options={statusOptions}/>
-         
-          <PHDatePicker label="Start Date" name="startDate" />
-          <PHDatePicker label="End Date" name="endDate" />
-          
-          <PHInput type="text" name="minCredit" label="Min Credit"/>
-          <PHInput type="text" name="maxCredit" label="Max Credit"/>
-          <Button htmlType="submit">Submit</Button>
-        </PHForm>
-      </Col>
-    </Flex>
+    <Flex justify="center" align="center">
+    <Col span={6}>
+      <PHForm onSubmit={onSubmit}>
+        <PHSelect
+          label="Academic Semester"
+          name="academicSemester"
+          options={semesterOptions}
+        />
+
+        <PHSelect
+          name="status"
+          label="Status"
+          options={statusOptions}
+        />
+        <PHDatePicker name="startDate" label="Start Date" />
+        <PHDatePicker name="endDate" label="End Date" />
+        <PHInput type="text" name="minCredit" label="Min Credit" />
+        <PHInput type="text" name="maxCredit" label="Max Credit" />
+
+        <Button htmlType="submit">Submit</Button>
+      </PHForm>
+    </Col>
+  </Flex>
   );
 };
 
