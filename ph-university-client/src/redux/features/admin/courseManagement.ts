@@ -34,7 +34,14 @@ const courseManagementApi = baseApi.injectEndpoints({
                 body:data
             })
         }),
+        updateRegisteredSemester: builder.mutation({
+            query: (args) =>({
+                url:`/semester-registration/${args.id}`,
+                method:"POST",
+                body:args.data
+            })
+        }),
     })
 })
 
-export const {useAddRegisteredSemesterMutation,useGetAllRegisteredSemesterQuery} = courseManagementApi
+export const {useAddRegisteredSemesterMutation,useGetAllRegisteredSemesterQuery,useUpdateRegisteredSemesterMutation} = courseManagementApi
