@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Dropdown, Modal, Table, TableColumnsType, Tag } from "antd";
 import {
+  useAddFacultiesMutation,
   useGetAllCoursesQuery,
   useGetAllRegisteredSemesterQuery,
   useUpdateRegisteredSemesterMutation,
@@ -59,7 +60,7 @@ const AllCourses = () => {
       title: "Action",
       key: "X",
       render: (item) => {
-        return <AddFacultyModal data={item} />;
+        return <AddFacultyModal facultyInfo={item} />;
       },
     },
   ];
@@ -79,13 +80,15 @@ const AllCourses = () => {
   );
 };
 
-const AddFacultyModal = ({ data }) => {
+const AddFacultyModal = ({ facultyInfo }) => {
 //   console.log(data);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {data:facultyData} = useGetAllFacultyQuery(undefined)
-  console.log(facultyData?.data)
+  const {data:facultiesData} = useGetAllFacultyQuery(undefined)
+
+  const [addFaculties] = useAddFacultiesMutation()
   
-  const facultyOptions = facultyData?.data?.map(item => ({
+  
+  const facultyOptions = facultiesData?.data?.map((item:any) => ({
     value: item._id,
     label:`${item.name.firstName} ${item.name.middleName} ${item.name.lastName}`
   }))
@@ -94,19 +97,25 @@ const AddFacultyModal = ({ data }) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   const handleSubmit = (data) =>{
-    console.log(data)
+    const facultyData = {
+      courseId : facultyInfo.key,
+      data
+    }
+   
+
+    addFaculties(facultyData)
 
   }
 
   return (
     <>
       <Button onClick={showModal}>Assign Faculty</Button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk}>
+      <Modal title="Basic Modal" open={isModalOpen} onCancel={handleCancel} footer={null}>
         <PHForm onSubmit={handleSubmit}>
             <PHSelect mode="multiple" options={facultyOptions} name="faculties" label="Faculty"/>
         <Button htmlType="submit">Submit</Button>
