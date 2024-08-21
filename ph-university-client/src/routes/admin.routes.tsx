@@ -6,6 +6,7 @@ import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
 import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
 import AdminDashboard from '../pages/admin/AdminDashboard';
+import AllCourses from '../pages/admin/courseManagement/AllCourses';
 import CreateCourse from '../pages/admin/courseManagement/CreateCourse';
 import RegisteredSemester from '../pages/admin/courseManagement/RegisteredSemester';
 import SemesterRegistration from '../pages/admin/courseManagement/SemesterRegistration';
@@ -108,6 +109,11 @@ export const adminPaths = [
         name: 'Create Course',
         path: 'create-course',
         element: <CreateCourse />,
+      },
+      {
+        name: 'All Courses',
+        path: 'all-courses',
+        element: <AllCourses />,
       },
       
     ],
